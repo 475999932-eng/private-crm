@@ -408,6 +408,60 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, {"ok": True, "id": cid})
             return
 
+        if path == "/api/customers/bulk":
+            user = self._require_auth()
+            if not user:
+                return
+            b = self._read_json()
+            items = b.get("items") or []
+            if not isinstance(items, list):
+                self._send(400, {"error": "items must be a list"})
+                return
+            conn = db_conn()
+            cur = conn.cursor()
+            created = 0
+            for item in items[:500]:
+                name = (item.get("name") or "").strip()
+                phone = (item.get("phone") or "").strip()
+                if not name or not phone:
+                    continue
+                owner = (item.get("owner") or "").strip() or user["username"]
+                if user["role"] != "boss":
+                    owner = user["username"]
+                tags = item.get("tags") or []
+                if not isinstance(tags, list):
+                    tags = []
+                cur.execute(
+                    """
+                    INSERT INTO customers(name, phone, wechat, city, owner, channel, level, status, source, tags, next_date, amount, note, last_follow, created_by, created_at, updated_at)
+                    VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    """,
+                    (
+                        name,
+                        phone,
+                        (item.get("wechat") or "").strip(),
+                        (item.get("city") or "").strip(),
+                        owner,
+                        (item.get("channel") or "").strip(),
+                        (item.get("level") or "").strip(),
+                        (item.get("status") or "").strip(),
+                        (item.get("source") or "").strip(),
+                        json.dumps(tags, ensure_ascii=False),
+                        (item.get("nextDate") or "").strip(),
+                        float(item.get("amount") or 0),
+                        (item.get("note") or "").strip(),
+                        (item.get("lastFollow") or "").strip(),
+                        user["id"],
+                        now_iso(),
+                        now_iso(),
+                    ),
+                )
+                created += 1
+            conn.commit()
+            conn.close()
+            self._send(200, {"ok": True, "created": created})
+            return
+
         if path == "/api/users":
             user = self._require_auth()
             if not user:
@@ -501,7 +555,7 @@ class Handler(BaseHTTPRequestHandler):
                 (
                     (b.get("date") or "").strip(),
                     (b.get("nextDate") or "").strip(),
-                    (b.get("status") or "").strip() or "跟进中",
+                    (b.get("status") or "").strip() or "Following",
                     now_iso(),
                     cid,
                 ),
@@ -511,10 +565,159 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, {"ok": True})
             return
 
+        if path == "/api/backup/export":
+            user = self._require_auth()
+            if not user:
+                return
+            if user["role"] != "boss":
+                self._send(403, {"error": "forbidden"})
+                return
+            conn = db_conn()
+            cust_rows = conn.execute("SELECT * FROM customers ORDER BY id ASC").fetchall()
+            follow_rows = conn.execute("SELECT * FROM follows ORDER BY id ASC").fetchall()
+            user_rows = conn.execute("SELECT id, username, role, created_at FROM users ORDER BY id ASC").fetchall()
+            conn.close()
+
+            customers = []
+            for r in cust_rows:
+                customers.append(
+                    {
+                        "id": r["id"],
+                        "name": r["name"],
+                        "phone": r["phone"],
+                        "wechat": r["wechat"],
+                        "city": r["city"],
+                        "owner": r["owner"],
+                        "channel": r["channel"],
+                        "level": r["level"],
+                        "status": r["status"],
+                        "source": r["source"],
+                        "tags": json.loads(r["tags"] or "[]"),
+                        "nextDate": r["next_date"],
+                        "amount": r["amount"] or 0,
+                        "note": r["note"],
+                        "lastFollow": r["last_follow"],
+                    }
+                )
+            follows = []
+            for r in follow_rows:
+                follows.append(
+                    {
+                        "id": r["id"],
+                        "customerId": r["customer_id"],
+                        "customerName": r["customer_name"],
+                        "date": r["date"],
+                        "content": r["content"],
+                        "nextDate": r["next_date"],
+                        "result": r["result"],
+                    }
+                )
+            users = []
+            for r in user_rows:
+                users.append(
+                    {
+                        "id": r["id"],
+                        "username": r["username"],
+                        "role": r["role"],
+                        "createdAt": r["created_at"],
+                    }
+                )
+            self._send(200, {"ok": True, "backupAt": now_iso(), "users": users, "customers": customers, "follows": follows})
+            return
+
         self._send(404, {"error": "not found"})
+
+    def do_PUT(self):
+        path = urlparse(self.path).path
+        if not path.startswith("/api/customers/"):
+            self._send(404, {"error": "not found"})
+            return
+        user = self._require_auth()
+        if not user:
+            return
+        try:
+            cid = int(path.split("/")[-1])
+        except Exception:
+            self._send(400, {"error": "invalid id"})
+            return
+        b = self._read_json()
+        conn = db_conn()
+        old = conn.execute("SELECT * FROM customers WHERE id = ?", (cid,)).fetchone()
+        if not old:
+            conn.close()
+            self._send(404, {"error": "customer not found"})
+            return
+        if user["role"] != "boss" and old["owner"] != user["username"]:
+            conn.close()
+            self._send(403, {"error": "forbidden"})
+            return
+
+        owner = (b.get("owner") or old["owner"] or "").strip()
+        if user["role"] != "boss":
+            owner = user["username"]
+        tags = b.get("tags", json.loads(old["tags"] or "[]"))
+        if not isinstance(tags, list):
+            tags = []
+        conn.execute(
+            """
+            UPDATE customers
+            SET name=?, phone=?, wechat=?, city=?, owner=?, channel=?, level=?, status=?, source=?, tags=?, next_date=?, amount=?, note=?, last_follow=?, updated_at=?
+            WHERE id=?
+            """,
+            (
+                (b.get("name") if b.get("name") is not None else old["name"]).strip(),
+                (b.get("phone") if b.get("phone") is not None else old["phone"]).strip(),
+                (b.get("wechat") if b.get("wechat") is not None else old["wechat"]).strip(),
+                (b.get("city") if b.get("city") is not None else old["city"]).strip(),
+                owner,
+                (b.get("channel") if b.get("channel") is not None else old["channel"]).strip(),
+                (b.get("level") if b.get("level") is not None else old["level"]).strip(),
+                (b.get("status") if b.get("status") is not None else old["status"]).strip(),
+                (b.get("source") if b.get("source") is not None else old["source"]).strip(),
+                json.dumps(tags, ensure_ascii=False),
+                (b.get("nextDate") if b.get("nextDate") is not None else old["next_date"]).strip(),
+                float(b.get("amount") if b.get("amount") is not None else (old["amount"] or 0)),
+                (b.get("note") if b.get("note") is not None else old["note"]).strip(),
+                (b.get("lastFollow") if b.get("lastFollow") is not None else old["last_follow"]).strip(),
+                now_iso(),
+                cid,
+            ),
+        )
+        conn.commit()
+        conn.close()
+        self._send(200, {"ok": True})
 
     def do_DELETE(self):
         path = urlparse(self.path).path
+        if path == "/api/customers":
+            user = self._require_auth()
+            if not user:
+                return
+            if user["role"] != "boss":
+                self._send(403, {"error": "forbidden"})
+                return
+            b = self._read_json()
+            ids = b.get("ids") or []
+            if not isinstance(ids, list):
+                self._send(400, {"error": "ids must be a list"})
+                return
+            clean_ids = []
+            for x in ids[:500]:
+                try:
+                    clean_ids.append(int(x))
+                except Exception:
+                    pass
+            if not clean_ids:
+                self._send(400, {"error": "no valid ids"})
+                return
+            conn = db_conn()
+            q = ",".join(["?"] * len(clean_ids))
+            conn.execute(f"DELETE FROM customers WHERE id IN ({q})", tuple(clean_ids))
+            conn.commit()
+            conn.close()
+            self._send(200, {"ok": True, "deleted": len(clean_ids)})
+            return
+
         if not path.startswith("/api/customers/"):
             self._send(404, {"error": "not found"})
             return
