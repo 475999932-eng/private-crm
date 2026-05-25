@@ -1,353 +1,171 @@
-﻿<!doctype html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Private CRM</title>
+  <title>私域CRM</title>
   <style>
-    :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --line: #e5e9f2;
-      --text: #1b2430;
-      --sub: #5f6b7a;
-      --primary: #3b5bdb;
-      --ok: #1f9d55;
-      --warn: #d97706;
-      --danger: #dc2626;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-    }
-    .wrap {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 16px;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 12px;
-    }
-    .title { font-size: 20px; font-weight: 700; }
-    .sub { color: var(--sub); font-size: 13px; }
-    .row { display: grid; gap: 12px; }
-    .row-2 { grid-template-columns: 1fr 1fr; }
-    .row-3 { grid-template-columns: repeat(3, 1fr); }
-    .row-4 { grid-template-columns: repeat(4, 1fr); }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 14px;
-    }
-    .hidden { display: none !important; }
-    .h2 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
-    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
-    .field label { font-size: 12px; color: var(--sub); }
-    input, select, textarea {
-      width: 100%;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 14px;
-      outline: none;
-      background: #fff;
-    }
-    textarea { min-height: 70px; resize: vertical; }
-    .btns { display: flex; gap: 8px; flex-wrap: wrap; }
-    button {
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: #fff;
-      color: var(--text);
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 13px;
-    }
-    button.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    button.ok { background: var(--ok); color: #fff; border-color: var(--ok); }
-    button.warn { background: var(--warn); color: #fff; border-color: var(--warn); }
-    button.danger { background: var(--danger); color: #fff; border-color: var(--danger); }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    th, td {
-      border-bottom: 1px solid var(--line);
-      text-align: left;
-      padding: 10px 8px;
-      font-size: 13px;
-      vertical-align: top;
-    }
-    th { background: #f8fbff; }
-    .kpi {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      padding: 10px;
-    }
-    .kpi .n { font-size: 24px; font-weight: 800; }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #eef2ff;
-      color: #3730a3;
-      font-size: 12px;
-      margin-right: 4px;
-      margin-top: 4px;
-    }
-    .split { display: flex; gap: 12px; align-items: stretch; }
-    .split > div { flex: 1; }
-    .small { font-size: 12px; color: var(--sub); }
-    .right { text-align: right; }
-    .notice {
-      padding: 10px;
-      background: #ecfdf3;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 13px;
-    }
-    .danger-note {
-      padding: 10px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 13px;
-    }
-    @media (max-width: 980px) {
-      .row-2, .row-3, .row-4 { grid-template-columns: 1fr; }
-      .split { flex-direction: column; }
-    }
+    :root{--bg:#f5f7fb;--card:#fff;--line:#e5e7eb;--text:#1f2937;--sub:#6b7280;--p:#3b82f6;--ok:#16a34a;--warn:#d97706;--danger:#dc2626}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--text)}
+    .wrap{max-width:1280px;margin:0 auto;padding:16px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+    .title{font-size:22px;font-weight:700}.sub{font-size:12px;color:var(--sub)}
+    .row{display:grid;gap:10px}.r2{grid-template-columns:1fr 1fr}.r3{grid-template-columns:repeat(3,1fr)}.r4{grid-template-columns:repeat(4,1fr)}
+    .field{display:flex;flex-direction:column;gap:6px}.field label{font-size:12px;color:var(--sub)}
+    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:14px}
+    textarea{min-height:76px;resize:vertical}
+    .btns{display:flex;gap:8px;flex-wrap:wrap}
+    button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:8px 12px;cursor:pointer}
+    .primary{background:var(--p);color:#fff;border-color:var(--p)} .ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+    .warn{background:var(--warn);color:#fff;border-color:var(--warn)} .danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+    .hidden{display:none !important}
+    table{width:100%;border-collapse:collapse;background:#fff} th,td{border-bottom:1px solid var(--line);padding:8px;font-size:13px;text-align:left;vertical-align:top}
+    th{background:#f8fafc}.kpi{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fff}.kpi .n{font-size:24px;font-weight:800}
+    .note{padding:10px;border-radius:8px;margin-bottom:8px;font-size:13px}
+    .oknote{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}.errnote{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+    .split{display:flex;gap:12px}.split>div{flex:1}
+    .badge{display:inline-block;padding:2px 8px;border-radius:999px;background:#eef2ff;font-size:12px;margin-right:4px}
+    @media(max-width:980px){.r2,.r3,.r4{grid-template-columns:1fr}.split{flex-direction:column}}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="topbar">
+    <div class="card top">
       <div>
         <div class="title">私域CRM + 利润工具</div>
         <div class="sub" id="statusLine">未登录</div>
       </div>
       <div class="btns">
-        <button id="btnExport客户s">Export 客户s CSV</button>
+        <button id="btnExportCustomers">导出客户CSV</button>
         <button id="btnExportFollows">导出跟进CSV</button>
-        <button id="btnExportBackup" class="warn hidden">备份JSON</button>
-        <button id="btn退出登录" class="danger hidden">退出登录</button>
+        <button id="btnExportBackup" class="warn hidden">导出系统备份</button>
+        <button id="btnLogout" class="danger hidden">退出登录</button>
       </div>
     </div>
 
     <div id="bootstrapCard" class="card hidden">
-      <div class="h2">创建第一管理员</div>
-      <div class="small">仅首次使用需要，这个账号是老板权限。</div>
+      <h3>创建第一管理员</h3>
+      <div class="sub">仅首次使用需要。此账号拥有老板权限。</div>
       <div id="bootstrapNotice"></div>
-      <div class="row row-2">
-        <div class="field"><label>Admin 用户名</label><input id="bootUser" /></div>
-        <div class="field"><label>Admin 密码</label><input id="bootPass" type="password" /></div>
+      <div class="row r2">
+        <div class="field"><label>管理员用户名</label><input id="bootUser" /></div>
+        <div class="field"><label>管理员密码</label><input id="bootPass" type="password" /></div>
       </div>
-      <div class="btns"><button class="primary" id="btnBootstrap">创建管理员</button></div>
+      <div class="btns" style="margin-top:8px"><button id="btnBootstrap" class="primary">创建管理员</button></div>
     </div>
 
     <div id="authCard" class="card hidden">
-      <div class="h2">登录</div>
+      <h3>登录</h3>
       <div id="authNotice"></div>
-      <div class="row row-2">
+      <div class="row r2">
         <div class="field"><label>用户名</label><input id="loginUser" /></div>
         <div class="field"><label>密码</label><input id="loginPass" type="password" /></div>
       </div>
-      <div class="btns"><button class="primary" id="btn登录">登录</button></div>
+      <div class="btns" style="margin-top:8px"><button id="btnLogin" class="primary">登录</button></div>
     </div>
 
     <div id="app" class="hidden row">
-      <div class="row row-4">
-        <div class="kpi"><div class="small">Total 客户s</div><div class="n" id="kTotal">0</div></div>
-        <div class="kpi"><div class="small">My 客户s</div><div class="n" id="kMine">0</div></div>
-        <div class="kpi"><div class="small">7天内到期</div><div class="n" id="kDue">0</div></div>
-        <div class="kpi"><div class="small">Total 金额</div><div class="n" id="k金额">0</div></div>
-      </div>
-      <div class="row row-4">
-        <div class="kpi"><div class="small">新线索</div><div class="n" id="kNew">0</div></div>
-        <div class="kpi"><div class="small">跟进中</div><div class="n" id="kFollow">0</div></div>
-        <div class="kpi"><div class="small">高意向</div><div class="n" id="k高意向">0</div></div>
-        <div class="kpi"><div class="small">已成交</div><div class="n" id="k已成交">0</div></div>
+      <div class="row r4">
+        <div class="kpi"><div class="sub">客户总数</div><div class="n" id="kTotal">0</div></div>
+        <div class="kpi"><div class="sub">我的客户</div><div class="n" id="kMine">0</div></div>
+        <div class="kpi"><div class="sub">7天内到期</div><div class="n" id="kDue">0</div></div>
+        <div class="kpi"><div class="sub">总金额</div><div class="n" id="kAmount">0</div></div>
       </div>
 
       <div class="split">
         <div class="card">
-          <div class="h2">New 客户</div>
+          <h3>新增客户</h3>
           <div id="createNotice"></div>
-          <div class="row row-3">
-            <div class="field"><label>姓名</label><input id="c姓名" /></div>
-            <div class="field"><label>电话</label><input id="c电话" /></div>
-            <div class="field"><label>微信号</label><input id="c微信号" /></div>
+          <div class="row r3">
+            <div class="field"><label>姓名</label><input id="cName"></div>
+            <div class="field"><label>电话</label><input id="cPhone"></div>
+            <div class="field"><label>微信号</label><input id="cWechat"></div>
           </div>
-          <div class="row row-3">
-            <div class="field"><label>城市</label><input id="c城市" /></div>
-            <div class="field"><label>负责人</label><input id="c负责人" /></div>
-            <div class="field"><label>渠道</label><input id="c渠道" /></div>
+          <div class="row r3">
+            <div class="field"><label>城市</label><input id="cCity"></div>
+            <div class="field"><label>负责人</label><input id="cOwner"></div>
+            <div class="field"><label>渠道</label><input id="cChannel"></div>
           </div>
-          <div class="row row-3">
-            <div class="field"><label>等级</label><input id="c等级" placeholder="A/B/C" /></div>
-            <div class="field"><label>状态</label><input id="c状态" placeholder="New/跟进中/高意向" /></div>
-            <div class="field"><label>来源</label><input id="c来源" /></div>
+          <div class="row r3">
+            <div class="field"><label>等级</label><input id="cLevel"></div>
+            <div class="field"><label>状态</label><input id="cStatus" placeholder="New / Following / Hot / Closed"></div>
+            <div class="field"><label>来源</label><input id="cSource"></div>
           </div>
-          <div class="row row-3">
-            <div class="field"><label>标签s (comma)</label><input id="c标签s" /></div>
-            <div class="field"><label>下次 Follow 跟进日期</label><input id="c下次跟进日期" type="date" /></div>
-            <div class="field"><label>金额</label><input id="c金额" type="number" step="0.01" /></div>
+          <div class="row r3">
+            <div class="field"><label>标签（逗号分隔）</label><input id="cTags"></div>
+            <div class="field"><label>下次跟进日期</label><input id="cNextDate" type="date"></div>
+            <div class="field"><label>金额</label><input id="cAmount" type="number" step="0.01"></div>
           </div>
-          <div class="field"><label>备注</label><textarea id="c备注"></textarea></div>
-          <div class="btns">
-            <button class="ok" id="btnCreate客户">Save 客户</button>
-            <button id="btn清空客户">清空</button>
-          </div>
+          <div class="field"><label>备注</label><textarea id="cNote"></textarea></div>
+          <div class="btns"><button class="ok" id="btnCreateCustomer">保存客户</button><button id="btnClearCustomer">清空</button></div>
         </div>
 
         <div class="card">
-          <div class="h2">利润测算</div>
-          <div class="row row-2">
-            <div class="field"><label>售价</label><input id="pSell" type="number" step="0.01" /></div>
-            <div class="field"><label>供货价</label><input id="pSupply" type="number" step="0.01" /></div>
+          <h3>利润测算</h3>
+          <div class="row r2">
+            <div class="field"><label>售价</label><input id="pSell" type="number" step="0.01"></div>
+            <div class="field"><label>供货价</label><input id="pSupply" type="number" step="0.01"></div>
           </div>
-          <div class="row row-2">
-            <div class="field"><label>平台佣金 %</label><input id="pComm" type="number" step="0.01" /></div>
-            <div class="field"><label>主播佣金 %</label><input id="pAnchor" type="number" step="0.01" /></div>
+          <div class="row r2">
+            <div class="field"><label>平台佣金 %</label><input id="pComm" type="number" step="0.01"></div>
+            <div class="field"><label>主播佣金 %</label><input id="pAnchor" type="number" step="0.01"></div>
           </div>
-          <div class="row row-3">
-            <div class="field"><label>运费 / 单</label><input id="pShip" type="number" step="0.01" /></div>
-            <div class="field"><label>包装费 / 单</label><input id="pPack" type="number" step="0.01" /></div>
-            <div class="field"><label>退货率 %</label><input id="pReturn" type="number" step="0.01" /></div>
+          <div class="row r3">
+            <div class="field"><label>运费 / 单</label><input id="pShip" type="number" step="0.01"></div>
+            <div class="field"><label>包装费 / 单</label><input id="pPack" type="number" step="0.01"></div>
+            <div class="field"><label>退货率 %</label><input id="pReturn" type="number" step="0.01"></div>
           </div>
-          <div class="row row-2">
-            <div class="field"><label>固定成本</label><input id="pFixed" type="number" step="0.01" value="0" /></div>
-            <div class="field"><label>目标销量</label><input id="pQty" type="number" step="1" value="100" /></div>
+          <div class="row r2">
+            <div class="field"><label>固定成本</label><input id="pFixed" type="number" step="0.01" value="0"></div>
+            <div class="field"><label>目标销量</label><input id="pQty" type="number" step="1" value="100"></div>
           </div>
-          <div class="btns">
-            <button class="primary" id="btnCalc">计算</button>
-            <button id="btnCalc重置">重置</button>
+          <div class="btns"><button class="primary" id="btnCalc">计算</button><button id="btnCalcReset">重置</button></div>
+          <div class="row r3" style="margin-top:10px">
+            <div class="kpi"><div class="sub">单件毛利</div><div class="n" id="outGross">0</div></div>
+            <div class="kpi"><div class="sub">单件净利</div><div class="n" id="outNet">0</div></div>
+            <div class="kpi"><div class="sub">保本销量</div><div class="n" id="outBreak">0</div></div>
           </div>
-          <div class="row row-3" style="margin-top:10px;">
-            <div class="kpi"><div class="small">单件毛利</div><div class="n" id="outGross">0</div></div>
-            <div class="kpi"><div class="small">单件净利</div><div class="n" id="outNet">0</div></div>
-            <div class="kpi"><div class="small">保本销量</div><div class="n" id="outBreak">0</div></div>
-          </div>
-          <div class="card" style="margin-top:10px;padding:10px;">
-            <div class="small">按目标销量预计净利润</div>
-            <div class="n" id="outQtyProfit">0</div>
-          </div>
+          <div class="kpi" style="margin-top:10px"><div class="sub">按目标销量预计净利润</div><div class="n" id="outQtyProfit">0</div></div>
         </div>
       </div>
 
       <div id="bossPanel" class="card hidden">
-        <div class="h2">团队管理（老板）</div>
+        <h3>团队管理（老板）</h3>
         <div id="teamNotice"></div>
-        <div class="row row-3">
-          <div class="field"><label>New 用户名</label><input id="u姓名" /></div>
-          <div class="field"><label>密码</label><input id="uPass" type="password" /></div>
-          <div class="field"><label>角色</label>
-            <select id="u角色"><option value="staff">staff</option><option value="boss">boss</option></select>
-          </div>
+        <div class="row r3">
+          <div class="field"><label>新用户名</label><input id="uName"></div>
+          <div class="field"><label>密码</label><input id="uPass" type="password"></div>
+          <div class="field"><label>角色</label><select id="uRole"><option value="staff">staff</option><option value="boss">boss</option></select></div>
         </div>
         <div class="btns"><button class="primary" id="btnCreateUser">创建账号</button></div>
-        <hr style="border:none;border-top:1px solid var(--line);margin:12px 0;" />
-        <div class="row row-2">
-          <div class="field"><label>重置 用户名</label><input id="rUser" /></div>
-          <div class="field"><label>New 密码</label><input id="rPass" type="password" /></div>
+        <hr style="border:none;border-top:1px solid var(--line);margin:12px 0">
+        <div class="row r2">
+          <div class="field"><label>重置用户名</label><input id="rUser"></div>
+          <div class="field"><label>新密码</label><input id="rPass" type="password"></div>
         </div>
-        <div class="btns"><button class="warn" id="btn重置Pass">重置 密码</button></div>
-        <div style="margin-top:10px;overflow:auto;">
-          <table id="userTable">
-            <thead><tr><th>ID</th><th>用户名</th><th>角色</th><th>创建时间</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="card">
-          <div class="h2">Bulk 开始导入 客户s</div>
-          <div class="small">粘贴 JSON 数组，例如：[{"name":"张三","phone":"138..."}]</div>
-          <div id="importNotice"></div>
-          <div class="field"><label>JSON 数据</label><textarea id="bulkJson" placeholder='[{"name":"Alice","phone":"13800138000","owner":"tom","status":"New"}]'></textarea></div>
-          <div class="btns">
-            <button class="primary" id="btnBulk开始导入">开始导入</button>
-            <button id="btn清空Bulk">清空</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="h2">批量删除（老板）</div>
-          <div class="small">输入客户ID，逗号分隔，例如：12,15,18</div>
-          <div id="bulkDelNotice"></div>
-          <div class="field"><label>IDs</label><input id="bulkDeleteIds" placeholder="1,2,3" /></div>
-          <div class="btns">
-            <button class="danger" id="btnBulkDelete">批量删除</button>
-          </div>
-          <hr style="border:none;border-top:1px solid var(--line);margin:12px 0;" />
-          <div class="h2">即将到期跟进</div>
-          <div id="dueList" class="small"></div>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="card">
-          <div class="h2">销售漏斗</div>
-          <div id="funnelStats" class="small"></div>
-        </div>
-        <div class="card">
-          <div class="h2">负责人 Leaderboard</div>
-          <div id="ownerBoard" class="small"></div>
-        </div>
+        <div class="btns"><button class="warn" id="btnResetPass">重置密码</button></div>
       </div>
 
       <div class="card">
-        <div class="h2">筛选</div>
-        <div class="row row-4">
-          <div class="field"><label>关键词</label><input id="f关键词" placeholder="name/phone/wechat/city/owner/channel" /></div>
-          <div class="field"><label>负责人</label><input id="f负责人" /></div>
-          <div class="field"><label>状态</label><input id="f状态" /></div>
-          <div class="field"><label>城市</label><input id="f城市" /></div>
-        </div>
-        <div class="row row-4">
-          <div class="field"><label>标签</label><input id="f标签" /></div>
-          <div class="field"><label>金额 Min</label><input id="f金额Min" type="number" step="0.01" /></div>
-          <div class="field"><label>最大金额</label><input id="f金额Max" type="number" step="0.01" /></div>
-          <div class="field"><label>下次 跟进日期 Before</label><input id="f下次Before" type="date" /></div>
+        <h3>筛选</h3>
+        <div class="row r4">
+          <div class="field"><label>关键词</label><input id="fKeyword" placeholder="姓名/电话/微信/城市/负责人/渠道"></div>
+          <div class="field"><label>负责人</label><input id="fOwner"></div>
+          <div class="field"><label>状态</label><input id="fStatus"></div>
+          <div class="field"><label>城市</label><input id="fCity"></div>
         </div>
         <div class="btns">
-          <button class="primary" id="btn应用筛选Filter">应用筛选</button>
-          <button id="btn清空Filter">清空</button>
-          <button id="btnSort金额">按金额排序</button>
-          <button id="btnSort下次跟进日期">Sort by 下次 跟进日期</button>
+          <button id="btnApplyFilter" class="primary">应用筛选</button>
+          <button id="btnClearFilter">清空筛选</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="h2">客户s</div>
-        <div class="small">提示：删除后不可恢复，请谨慎操作。</div>
-        <div style="overflow:auto; margin-top:8px;">
+        <h3>客户列表</h3>
+        <div style="overflow:auto">
           <table id="customerTable">
-            <thead>
-              <tr>
-                <th>ID</th><th>姓名</th><th>电话</th><th>微信号</th><th>城市</th><th>负责人</th>
-                <th>渠道</th><th>状态</th><th>金额</th><th>下次 跟进日期</th><th>标签s</th><th>备注</th><th>操作</th>
-              </tr>
-            </thead>
+            <thead><tr><th>ID</th><th>姓名</th><th>电话</th><th>微信</th><th>城市</th><th>负责人</th><th>状态</th><th>金额</th><th>下次跟进</th><th>标签</th><th>备注</th><th>操作</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -355,28 +173,25 @@
 
       <div class="split">
         <div class="card">
-          <div class="h2">新增跟进</div>
+          <h3>新增跟进</h3>
           <div id="followNotice"></div>
-          <div class="row row-2">
-            <div class="field"><label>客户ID</label><input id="f客户Id" type="number" /></div>
-            <div class="field"><label>跟进日期</label><input id="f跟进日期" type="date" /></div>
+          <div class="row r2">
+            <div class="field"><label>客户ID</label><input id="fCustomerId" type="number"></div>
+            <div class="field"><label>跟进日期</label><input id="fDate" type="date"></div>
           </div>
-          <div class="row row-2">
-            <div class="field"><label>跟进结果</label><input id="f跟进结果" placeholder="Connected / No answer / Qualified" /></div>
-            <div class="field"><label>下次 Follow 跟进日期</label><input id="f下次跟进日期2" type="date" /></div>
+          <div class="row r2">
+            <div class="field"><label>跟进结果</label><input id="fResult"></div>
+            <div class="field"><label>下次跟进日期</label><input id="fNextDate2" type="date"></div>
           </div>
-          <div class="field"><label>跟进内容</label><textarea id="f跟进内容"></textarea></div>
-          <div class="field"><label>Update 客户 状态</label><input id="f状态2" placeholder="跟进中 / 高意向 / 已成交" /></div>
-          <div class="btns">
-            <button class="ok" id="btnAddFollow">保存跟进</button>
-            <button id="btn清空Follow">清空</button>
-          </div>
+          <div class="field"><label>跟进内容</label><textarea id="fContent"></textarea></div>
+          <div class="field"><label>更新客户状态</label><input id="fStatus2" placeholder="Following / Hot / Closed"></div>
+          <div class="btns"><button id="btnAddFollow" class="ok">保存跟进</button><button id="btnClearFollow">清空</button></div>
         </div>
         <div class="card">
-          <div class="h2">最近跟进</div>
-          <div style="overflow:auto;">
+          <h3>最近跟进</h3>
+          <div style="overflow:auto">
             <table id="followTable">
-              <thead><tr><th>ID</th><th>客户</th><th>跟进日期</th><th>跟进结果</th><th>下次</th><th>跟进内容</th></tr></thead>
+              <thead><tr><th>ID</th><th>客户</th><th>日期</th><th>结果</th><th>下次</th><th>内容</th></tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -391,562 +206,223 @@
     let me = null;
     let customers = [];
     let follows = [];
-    let users = [];
-    let sortState = { amountAsc: true, nextAsc: true };
-
     const $ = (id) => document.getElementById(id);
+    const today = () => new Date().toISOString().slice(0, 10);
     const toNum = (v) => Number(v || 0);
-    const today = () => new 跟进日期().toISOString().slice(0, 10);
-    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
 
     function notice(el, text, ok = true) {
-      el.innerHTML = text ? `<div class="${ok ? "notice" : "danger-note"}">${esc(text)}</div>` : "";
+      el.innerHTML = text ? `<div class="note ${ok ? "oknote" : "errnote"}">${esc(text)}</div>` : "";
     }
 
     async function req(path, options = {}) {
-      const headers = Object.assign({ "跟进内容-Type": "application/json" }, options.headers || {});
+      const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
       if (token) headers.Authorization = "Bearer " + token;
       const res = await fetch(API + path, Object.assign({}, options, { headers }));
       const ct = res.headers.get("content-type") || "";
       const body = ct.includes("application/json") ? await res.json() : await res.text();
-      if (!res.ok) {
-        const msg = (body && body.error) ? body.error : `HTTP ${res.status}`;
-        throw new Error(msg);
-      }
+      if (!res.ok) throw new Error(body && body.error ? body.error : `HTTP ${res.status}`);
       return body;
     }
 
-    function set状态Line() {
-      const base = me ? `已登录： ${me.username} (${me.role})` : "未登录";
-      $("statusLine").text跟进内容 = `${base} | ${new 跟进日期().toLocaleString()}`;
+    function updateStatus() {
+      const t = me ? `已登录：${me.username}（${me.role}）` : "未登录";
+      $("statusLine").textContent = `${t}  ${new Date().toLocaleString()}`;
     }
 
-    function showAuth(needBootstrap) {
+    function showAuth(bootstrap) {
       $("app").classList.add("hidden");
-      $("btn退出登录").classList.add("hidden");
-      $("bootstrapCard").classList.toggle("hidden", !needBootstrap);
-      $("authCard").classList.toggle("hidden", needBootstrap);
-      me = null;
-      set状态Line();
+      $("btnLogout").classList.add("hidden");
+      $("btnExportBackup").classList.add("hidden");
+      $("bootstrapCard").classList.toggle("hidden", !bootstrap);
+      $("authCard").classList.toggle("hidden", bootstrap);
+      updateStatus();
     }
 
     function showApp() {
       $("bootstrapCard").classList.add("hidden");
       $("authCard").classList.add("hidden");
       $("app").classList.remove("hidden");
-      $("btn退出登录").classList.remove("hidden");
-      $("btnExportBackup").classList.toggle("hidden", !me || me.role !== "boss");
+      $("btnLogout").classList.remove("hidden");
       $("bossPanel").classList.toggle("hidden", !me || me.role !== "boss");
-      set状态Line();
+      $("btnExportBackup").classList.toggle("hidden", !me || me.role !== "boss");
+      updateStatus();
     }
 
-    function customerMatch(c) {
-      const kw = $("f关键词").value.trim().toLowerCase();
-      const owner = $("f负责人").value.trim().toLowerCase();
-      const status = $("f状态").value.trim().toLowerCase();
-      const city = $("f城市").value.trim().toLowerCase();
-      const tag = $("f标签").value.trim().toLowerCase();
-      const min = $("f金额Min").value.trim();
-      const max = $("f金额Max").value.trim();
-      const nextBefore = $("f下次Before").value.trim();
-
-      const blob = `${c.name} ${c.phone} ${c.wechat} ${c.city} ${c.owner} ${c.channel}`.toLowerCase();
-      if (kw && !blob.includes(kw)) return false;
-      if (owner && !String(c.owner || "").toLowerCase().includes(owner)) return false;
-      if (status && !String(c.status || "").toLowerCase().includes(status)) return false;
-      if (city && !String(c.city || "").toLowerCase().includes(city)) return false;
-      if (tag && !(c.tags || []).join(",").toLowerCase().includes(tag)) return false;
-      if (min && Number(c.amount || 0) < Number(min)) return false;
-      if (max && Number(c.amount || 0) > Number(max)) return false;
-      if (nextBefore && c.next跟进日期 && c.next跟进日期 > nextBefore) return false;
-      return true;
-    }
-
-    function getFiltered客户s() {
-      return customers.filter(customerMatch);
-    }
-
-    function render客户s() {
-      const arr = getFiltered客户s();
-      const tbody = $("customerTable").querySelector("tbody");
-      tbody.innerHTML = arr.map(c => `
-        <tr>
-          <td>${c.id}</td>
-          <td>${esc(c.name)}</td>
-          <td>${esc(c.phone)}</td>
-          <td>${esc(c.wechat || "")}</td>
-          <td>${esc(c.city || "")}</td>
-          <td>${esc(c.owner || "")}</td>
-          <td>${esc(c.channel || "")}</td>
-          <td>${esc(c.status || "")}</td>
-          <td>${Number(c.amount || 0).toFixed(2)}</td>
-          <td>${esc(c.next跟进日期 || "")}</td>
-          <td>${(c.tags || []).map(t => `<span class="badge">${esc(t)}</span>`).join("")}</td>
-          <td>${esc(c.note || "")}</td>
-          <td>
-            <div class="btns">
-              <button data-edit="${c.id}">Edit</button>
-              <button data-copy="${c.id}">Duplicate</button>
-              <button class="danger" data-del="${c.id}">Delete</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-
-      tbody.querySelectorAll("button[data-edit]").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const cid = Number(btn.dataset.edit);
-          const c = customers.find(x => x.id === cid);
-          if (!c) return;
-          const name = prompt("姓名", c.name || "");
-          if (name === null) return;
-          const phone = prompt("电话", c.phone || "");
-          if (phone === null) return;
-          const status = prompt("状态", c.status || "");
-          if (status === null) return;
-          const amount = prompt("金额", String(c.amount || 0));
-          if (amount === null) return;
-          try {
-            await req(`/api/customers/${cid}`, {
-              method: "PUT",
-              body: JSON.stringify({ name, phone, status, amount: Number(amount || 0) })
-            });
-            await reloadData();
-          } catch (e) { alert(e.message); }
-        });
+    function filtered() {
+      const kw = $("fKeyword").value.trim().toLowerCase();
+      const owner = $("fOwner").value.trim().toLowerCase();
+      const status = $("fStatus").value.trim().toLowerCase();
+      const city = $("fCity").value.trim().toLowerCase();
+      return customers.filter((c) => {
+        const blob = `${c.name} ${c.phone} ${c.wechat||""} ${c.city||""} ${c.owner||""} ${c.channel||""}`.toLowerCase();
+        if (kw && !blob.includes(kw)) return false;
+        if (owner && !String(c.owner || "").toLowerCase().includes(owner)) return false;
+        if (status && !String(c.status || "").toLowerCase().includes(status)) return false;
+        if (city && !String(c.city || "").toLowerCase().includes(city)) return false;
+        return true;
       });
-
-      tbody.querySelectorAll("button[data-copy]").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const cid = Number(btn.dataset.copy);
-          const c = customers.find(x => x.id === cid);
-          if (!c) return;
-          try {
-            await req("/api/customers", {
-              method: "POST",
-              body: JSON.stringify({
-                name: c.name + " (Copy)",
-                phone: c.phone,
-                wechat: c.wechat || "",
-                city: c.city || "",
-                owner: c.owner || "",
-                channel: c.channel || "",
-                level: c.level || "",
-                status: c.status || "New",
-                source: c.source || "",
-                tags: c.tags || [],
-                next跟进日期: c.next跟进日期 || "",
-                amount: Number(c.amount || 0),
-                note: c.note || ""
-              })
-            });
-            await reloadData();
-          } catch (e) { alert(e.message); }
-        });
-      });
-
-      tbody.querySelectorAll("button[data-del]").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          if (!confirm("确认删除这个客户吗？")) return;
-          try {
-            await req(`/api/customers/${btn.dataset.del}`, { method: "DELETE" });
-            await reloadData();
-          } catch (e) { alert(e.message); }
-        });
-      });
-
-      renderKpi(arr);
-      renderDueList(arr);
-      renderFunnel(arr);
-      render负责人Board(arr);
     }
 
     function renderKpi(arr) {
-      const total = customers.length;
-      const mine = customers.filter(c => !me ? false : c.owner === me.username).length;
-      const due = arr.filter(c => c.next跟进日期 && c.next跟进日期 <= addDays(today(), 7)).length;
-      const amount = arr.reduce((s, c) => s + Number(c.amount || 0), 0);
-      const by = (name) => arr.filter(c => String(c.status || "").toLowerCase() === name).length;
-      $("kTotal").text跟进内容 = total;
-      $("kMine").text跟进内容 = mine;
-      $("kDue").text跟进内容 = due;
-      $("k金额").text跟进内容 = amount.toFixed(2);
-      $("kNew").text跟进内容 = by("new");
-      $("kFollow").text跟进内容 = by("following");
-      $("k高意向").text跟进内容 = by("hot");
-      $("k已成交").text跟进内容 = by("closed");
-    }
-
-    function renderDueList(arr) {
-      const due = arr
-        .filter(c => c.next跟进日期)
-        .sort((a, b) => (a.next跟进日期 || "9999-12-31").localeCompare(b.next跟进日期 || "9999-12-31"))
-        .slice(0, 10);
-      $("dueList").innerHTML = due.length
-        ? due.map(c => `<div>#${c.id} ${esc(c.name)} - ${esc(c.next跟进日期)} (${esc(c.owner || "")})</div>`).join("")
-        : "暂无即将到期跟进。";
-    }
-
-    function renderFunnel(arr) {
-      const stages = ["new", "following", "hot", "closed"];
-      const counts = stages.map(s => arr.filter(c => String(c.status || "").toLowerCase() === s).length);
-      const total = Math.max(1, arr.length);
-      $("funnelStats").innerHTML = stages.map((s, i) => {
-        const pct = ((counts[i] / total) * 100).toFixed(1);
-        return `<div style="margin-bottom:8px;"><b>${s.toUpperCase()}</b>: ${counts[i]} (${pct}%)</div>`;
-      }).join("");
-    }
-
-    function render负责人Board(arr) {
-      const map = {};
-      for (const c of arr) {
-        const o = c.owner || "Unassigned";
-        if (!map[o]) map[o] = { count: 0, amount: 0 };
-        map[o].count += 1;
-        map[o].amount += Number(c.amount || 0);
-      }
-      const rows = Object.entries(map)
-        .map(([owner, v]) => ({ owner, count: v.count, amount: v.amount }))
-        .sort((a, b) => b.amount - a.amount)
-        .slice(0, 10);
-      $("ownerBoard").innerHTML = rows.length
-        ? rows.map((r, i) => `<div style="margin-bottom:8px;">${i + 1}. <b>${esc(r.owner)}</b> - ${r.count} customers - ${r.amount.toFixed(2)}</div>`).join("")
-        : "暂无数据。";
-    }
-
-    function renderFollows() {
-      const tbody = $("followTable").querySelector("tbody");
-      tbody.innerHTML = follows.map(f => `
-        <tr>
-          <td>${f.id}</td>
-          <td>${esc(f.customer姓名 || "")}</td>
-          <td>${esc(f.date || "")}</td>
-          <td>${esc(f.result || "")}</td>
-          <td>${esc(f.next跟进日期 || "")}</td>
-          <td>${esc(f.content || "")}</td>
-        </tr>
-      `).join("");
-    }
-
-    function renderUsers() {
-      if (!me || me.role !== "boss") return;
-      const tbody = $("userTable").querySelector("tbody");
-      tbody.innerHTML = users.map(u => `
-        <tr>
-          <td>${u.id}</td><td>${esc(u.username)}</td><td>${esc(u.role)}</td><td>${esc(u.createdAt)}</td>
-        </tr>
-      `).join("");
+      $("kTotal").textContent = customers.length;
+      $("kMine").textContent = customers.filter((c) => me && c.owner === me.username).length;
+      $("kDue").textContent = arr.filter((c) => c.nextDate && c.nextDate <= addDays(today(), 7)).length;
+      $("kAmount").textContent = arr.reduce((s, c) => s + Number(c.amount || 0), 0).toFixed(2);
     }
 
     function addDays(dateStr, n) {
-      if (!dateStr) return "";
-      const d = new 跟进日期(dateStr + "T00:00:00");
-      d.set跟进日期(d.get跟进日期() + n);
+      const d = new Date((dateStr || today()) + "T00:00:00");
+      d.setDate(d.getDate() + n);
       return d.toISOString().slice(0, 10);
+    }
+
+    function renderCustomers() {
+      const arr = filtered();
+      const tb = $("customerTable").querySelector("tbody");
+      tb.innerHTML = arr.map((c) => `
+        <tr>
+          <td>${c.id}</td><td>${esc(c.name)}</td><td>${esc(c.phone)}</td><td>${esc(c.wechat||"")}</td><td>${esc(c.city||"")}</td>
+          <td>${esc(c.owner||"")}</td><td>${esc(c.status||"")}</td><td>${Number(c.amount||0).toFixed(2)}</td><td>${esc(c.nextDate||"")}</td>
+          <td>${(c.tags||[]).map((t)=>`<span class="badge">${esc(t)}</span>`).join("")}</td><td>${esc(c.note||"")}</td>
+          <td><button data-del="${c.id}" class="danger">删除</button></td>
+        </tr>
+      `).join("");
+      tb.querySelectorAll("button[data-del]").forEach((b) => {
+        b.onclick = async () => {
+          if (!confirm("确认删除该客户？")) return;
+          try { await req(`/api/customers/${b.dataset.del}`, { method: "DELETE" }); await reloadData(); } catch (e) { alert(e.message); }
+        };
+      });
+      renderKpi(arr);
+    }
+
+    function renderFollows() {
+      const tb = $("followTable").querySelector("tbody");
+      tb.innerHTML = follows.map((f) => `
+        <tr><td>${f.id}</td><td>${esc(f.customerName||"")}</td><td>${esc(f.date||"")}</td><td>${esc(f.result||"")}</td><td>${esc(f.nextDate||"")}</td><td>${esc(f.content||"")}</td></tr>
+      `).join("");
     }
 
     async function reloadData() {
       const [c, f] = await Promise.all([req("/api/customers"), req("/api/follows")]);
       customers = c.customers || [];
       follows = f.follows || [];
-      render客户s();
+      renderCustomers();
       renderFollows();
-      if (me && me.role === "boss") {
-        const u = await req("/api/users");
-        users = u.users || [];
-        renderUsers();
-      }
     }
 
-    function customerPayloadFromForm() {
-      const tags = $("c标签s").value.split(",").map(v => v.trim()).filter(Boolean);
-      return {
-        name: $("c姓名").value.trim(),
-        phone: $("c电话").value.trim(),
-        wechat: $("c微信号").value.trim(),
-        city: $("c城市").value.trim(),
-        owner: $("c负责人").value.trim(),
-        channel: $("c渠道").value.trim(),
-        level: $("c等级").value.trim(),
-        status: $("c状态").value.trim(),
-        source: $("c来源").value.trim(),
-        tags,
-        next跟进日期: $("c下次跟进日期").value,
-        amount: toNum($("c金额").value),
-        note: $("c备注").value.trim(),
-        lastFollow: ""
-      };
-    }
-
-    function clear客户Form() {
-      ["c姓名","c电话","c微信号","c城市","c负责人","c渠道","c等级","c状态","c来源","c标签s","c下次跟进日期","c金额","c备注"]
-        .forEach(id => $(id).value = "");
-    }
-
-    function clearFollowForm() {
-      ["f客户Id","f跟进结果","f下次跟进日期2","f跟进内容","f状态2"].forEach(id => $(id).value = "");
-      $("f跟进日期").value = today();
-    }
-
-    function calcProfit() {
-      const sell = toNum($("pSell").value);
-      const supply = toNum($("pSupply").value);
-      const comm = toNum($("pComm").value) / 100;
-      const anchor = toNum($("pAnchor").value) / 100;
-      const ship = toNum($("pShip").value);
-      const pack = toNum($("pPack").value);
-      const ret = toNum($("pReturn").value) / 100;
-      const fixed = toNum($("pFixed").value);
-      const qty = Math.max(0, Math.floor(toNum($("pQty").value)));
-
-      const gross = sell - supply;
-      const varCost = sell * comm + sell * anchor + ship + pack + sell * ret;
-      const net = sell - supply - varCost;
-      const breakEven = net > 0 ? Math.ceil(fixed / net) : 0;
-      const qtyProfit = qty * net - fixed;
-
-      $("outGross").text跟进内容 = gross.toFixed(2);
-      $("outNet").text跟进内容 = net.toFixed(2);
-      $("outBreak").text跟进内容 = String(breakEven);
-      $("outQtyProfit").text跟进内容 = qtyProfit.toFixed(2);
-    }
-
-    function exportCsv(filename, rows) {
-      if (!rows.length) return alert("暂无可导出数据。");
+    function exportCsv(name, rows) {
+      if (!rows.length) return alert("暂无可导出数据");
       const keys = Object.keys(rows[0]);
-      const lines = [keys.join(",")].concat(rows.map(r => keys.map(k => {
-        const val = r[k] == null ? "" : String(r[k]).replaceAll("\"", "\"\"");
-        return `"${val}"`;
-      }).join(",")));
+      const lines = [keys.join(",")].concat(rows.map((r) => keys.map((k) => `"${String(r[k] ?? "").replaceAll("\"", "\"\"")}"`).join(",")));
       const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = filename;
+      a.download = name;
       a.click();
       URL.revokeObjectURL(a.href);
+    }
+
+    function calcProfit() {
+      const sell = toNum($("pSell").value), supply = toNum($("pSupply").value), comm = toNum($("pComm").value)/100, anchor = toNum($("pAnchor").value)/100;
+      const ship = toNum($("pShip").value), pack = toNum($("pPack").value), ret = toNum($("pReturn").value)/100, fixed = toNum($("pFixed").value), qty = Math.max(0, Math.floor(toNum($("pQty").value)));
+      const gross = sell - supply, varCost = sell*comm + sell*anchor + ship + pack + sell*ret, net = sell - supply - varCost;
+      $("outGross").textContent = gross.toFixed(2); $("outNet").textContent = net.toFixed(2); $("outBreak").textContent = net > 0 ? String(Math.ceil(fixed/net)) : "0"; $("outQtyProfit").textContent = (qty*net-fixed).toFixed(2);
     }
 
     async function boot() {
       try {
         const s = await req("/api/system-status");
-        if (!s.hasUsers) {
-          showAuth(true);
-        } else if (!token) {
-          showAuth(false);
-        } else {
-          const m = await req("/api/me");
-          me = m.user;
-          showApp();
-          await reloadData();
-        }
+        if (!s.hasUsers) return showAuth(true);
+        if (!token) return showAuth(false);
+        const m = await req("/api/me");
+        me = m.user;
+        showApp();
+        await reloadData();
       } catch (e) {
         showAuth(false);
         notice($("authNotice"), e.message, false);
       }
     }
 
-    $("btnBootstrap").addEventListener("click", async () => {
+    $("btnBootstrap").onclick = async () => {
       try {
-        await req("/api/bootstrap-admin", {
-          method: "POST",
-          body: JSON.stringify({ username: $("bootUser").value.trim(), password: $("bootPass").value.trim() })
-        });
-        notice($("bootstrapNotice"), "管理员创建成功，请登录。");
+        await req("/api/bootstrap-admin", { method: "POST", body: JSON.stringify({ username: $("bootUser").value.trim(), password: $("bootPass").value.trim() }) });
+        notice($("bootstrapNotice"), "管理员创建成功，请登录");
         showAuth(false);
       } catch (e) { notice($("bootstrapNotice"), e.message, false); }
-    });
-
-    $("btn登录").addEventListener("click", async () => {
+    };
+    $("btnLogin").onclick = async () => {
       try {
-        const r = await req("/api/login", {
-          method: "POST",
-          body: JSON.stringify({ username: $("loginUser").value.trim(), password: $("loginPass").value.trim() })
-        });
-        token = r.token;
-        localStorage.setItem("crm_token", token);
-        me = r.user;
-        showApp();
-        await reloadData();
+        const r = await req("/api/login", { method: "POST", body: JSON.stringify({ username: $("loginUser").value.trim(), password: $("loginPass").value.trim() }) });
+        token = r.token; localStorage.setItem("crm_token", token); me = r.user; showApp(); await reloadData();
       } catch (e) { notice($("authNotice"), e.message, false); }
-    });
-
-    $("btn退出登录").addEventListener("click", async () => {
+    };
+    $("btnLogout").onclick = async () => {
       try { await req("/api/logout", { method: "POST" }); } catch (_) {}
-      token = "";
-      me = null;
-      localStorage.removeItem("crm_token");
-      showAuth(false);
-    });
-
-    $("btnCreate客户").addEventListener("click", async () => {
+      token = ""; me = null; localStorage.removeItem("crm_token"); showAuth(false);
+    };
+    $("btnCreateCustomer").onclick = async () => {
       try {
-        const p = customerPayloadFromForm();
-        if (!p.name || !p.phone) throw new Error("姓名 and phone are required.");
+        const p = {
+          name: $("cName").value.trim(), phone: $("cPhone").value.trim(), wechat: $("cWechat").value.trim(), city: $("cCity").value.trim(), owner: $("cOwner").value.trim(),
+          channel: $("cChannel").value.trim(), level: $("cLevel").value.trim(), status: $("cStatus").value.trim(), source: $("cSource").value.trim(),
+          tags: $("cTags").value.split(",").map((x)=>x.trim()).filter(Boolean), nextDate: $("cNextDate").value, amount: toNum($("cAmount").value), note: $("cNote").value.trim()
+        };
+        if (!p.name || !p.phone) throw new Error("姓名和电话必填");
         await req("/api/customers", { method: "POST", body: JSON.stringify(p) });
-        notice($("createNotice"), "客户已保存。");
-        clear客户Form();
+        notice($("createNotice"), "客户保存成功");
+        ["cName","cPhone","cWechat","cCity","cOwner","cChannel","cLevel","cStatus","cSource","cTags","cNextDate","cAmount","cNote"].forEach((id)=>$(id).value="");
         await reloadData();
       } catch (e) { notice($("createNotice"), e.message, false); }
-    });
-
-    $("btn清空客户").addEventListener("click", clear客户Form);
-
-    $("btnAddFollow").addEventListener("click", async () => {
+    };
+    $("btnClearCustomer").onclick = () => ["cName","cPhone","cWechat","cCity","cOwner","cChannel","cLevel","cStatus","cSource","cTags","cNextDate","cAmount","cNote"].forEach((id)=>$(id).value="");
+    $("btnAddFollow").onclick = async () => {
       try {
-        const payload = {
-          customerId: toNum($("f客户Id").value),
-          date: $("f跟进日期").value || today(),
-          content: $("f跟进内容").value.trim(),
-          next跟进日期: $("f下次跟进日期2").value,
-          result: $("f跟进结果").value.trim(),
-          status: $("f状态2").value.trim()
-        };
-        if (!payload.customerId) throw new Error("客户ID is required.");
+        const payload = { customerId: toNum($("fCustomerId").value), date: $("fDate").value || today(), content: $("fContent").value.trim(), nextDate: $("fNextDate2").value, result: $("fResult").value.trim(), status: $("fStatus2").value.trim() };
+        if (!payload.customerId) throw new Error("客户ID必填");
         await req("/api/follows", { method: "POST", body: JSON.stringify(payload) });
-        notice($("followNotice"), "跟进已保存。");
-        clearFollowForm();
+        notice($("followNotice"), "跟进保存成功");
+        ["fCustomerId","fResult","fNextDate2","fContent","fStatus2"].forEach((id)=>$(id).value=""); $("fDate").value=today();
         await reloadData();
       } catch (e) { notice($("followNotice"), e.message, false); }
-    });
-
-    $("btn清空Follow").addEventListener("click", clearFollowForm);
-    $("btn应用筛选Filter").addEventListener("click", render客户s);
-    $("btn清空Filter").addEventListener("click", () => {
-      ["f关键词","f负责人","f状态","f城市","f标签","f金额Min","f金额Max","f下次Before"].forEach(id => $(id).value = "");
-      render客户s();
-    });
-
-    $("btnSort金额").addEventListener("click", () => {
-      sortState.amountAsc = !sortState.amountAsc;
-      customers.sort((a, b) => sortState.amountAsc ? (Number(a.amount||0)-Number(b.amount||0)) : (Number(b.amount||0)-Number(a.amount||0)));
-      render客户s();
-    });
-
-    $("btnSort下次跟进日期").addEventListener("click", () => {
-      sortState.nextAsc = !sortState.nextAsc;
-      customers.sort((a, b) => {
-        const x = a.next跟进日期 || "9999-12-31";
-        const y = b.next跟进日期 || "9999-12-31";
-        return sortState.nextAsc ? x.localeCompare(y) : y.localeCompare(x);
-      });
-      render客户s();
-    });
-
-    $("btnBulk开始导入").addEventListener("click", async () => {
+    };
+    $("btnClearFollow").onclick = () => ["fCustomerId","fResult","fNextDate2","fContent","fStatus2"].forEach((id)=>$(id).value="");
+    $("btnApplyFilter").onclick = renderCustomers;
+    $("btnClearFilter").onclick = () => { ["fKeyword","fOwner","fStatus","fCity"].forEach((id)=>$(id).value=""); renderCustomers(); };
+    $("btnCalc").onclick = calcProfit;
+    $("btnCalcReset").onclick = () => { ["pSell","pSupply","pComm","pAnchor","pShip","pPack","pReturn","pFixed","pQty"].forEach((id)=>$(id).value=""); $("pFixed").value="0"; $("pQty").value="100"; calcProfit(); };
+    $("btnExportCustomers").onclick = () => exportCsv("客户数据.csv", filtered().map((c)=>({ id:c.id, name:c.name, phone:c.phone, wechat:c.wechat||"", city:c.city||"", owner:c.owner||"", channel:c.channel||"", level:c.level||"", status:c.status||"", source:c.source||"", tags:(c.tags||[]).join("|"), nextDate:c.nextDate||"", amount:Number(c.amount||0).toFixed(2), note:c.note||"" })));
+    $("btnExportFollows").onclick = () => exportCsv("跟进数据.csv", follows.map((f)=>({ id:f.id, customerId:f.customerId, customerName:f.customerName||"", date:f.date||"", result:f.result||"", nextDate:f.nextDate||"", content:f.content||"" })));
+    $("btnExportBackup").onclick = async () => {
       try {
-        const raw = $("bulkJson").value.trim();
-        if (!raw) throw new Error("请先输入JSON数据。");
-        const items = JSON.parse(raw);
-        if (!Array.isArray(items)) throw new Error("JSON格式必须是数组。");
-        const r = await req("/api/customers/bulk", { method: "POST", body: JSON.stringify({ items }) });
-        notice($("importNotice"), `开始导入 done. Created ${r.created} customers.`);
-        await reloadData();
-      } catch (e) { notice($("importNotice"), e.message, false); }
-    });
-
-    $("btn清空Bulk").addEventListener("click", () => {
-      $("bulkJson").value = "";
-    });
-
-    $("btnBulkDelete").addEventListener("click", async () => {
-      try {
-        if (!me || me.role !== "boss") throw new Error("仅老板可操作。");
-        const ids = $("bulkDeleteIds").value.split(",").map(v => Number(v.trim())).filter(v => Number.isFinite(v) && v > 0);
-        if (!ids.length) throw new Error("请输入有效ID。");
-        if (!confirm(`Delete ${ids.length} customers?`)) return;
-        const r = await req("/api/customers", { method: "DELETE", body: JSON.stringify({ ids }) });
-        notice($("bulkDelNotice"), `Deleted ${r.deleted} customers.`);
-        $("bulkDeleteIds").value = "";
-        await reloadData();
-      } catch (e) { notice($("bulkDelNotice"), e.message, false); }
-    });
-
-    $("btnCreateUser").addEventListener("click", async () => {
-      try {
-        await req("/api/users", {
-          method: "POST",
-          body: JSON.stringify({
-            username: $("u姓名").value.trim(),
-            password: $("uPass").value.trim(),
-            role: $("u角色").value
-          })
-        });
-        notice($("teamNotice"), "账号创建成功。");
-        $("u姓名").value = ""; $("uPass").value = "";
-        await reloadData();
-      } catch (e) { notice($("teamNotice"), e.message, false); }
-    });
-
-    $("btn重置Pass").addEventListener("click", async () => {
-      try {
-        await req("/api/users/reset-password", {
-          method: "POST",
-          body: JSON.stringify({ username: $("rUser").value.trim(), new密码: $("rPass").value.trim() })
-        });
-        notice($("teamNotice"), "密码 reset done.");
-        $("rUser").value = ""; $("rPass").value = "";
-      } catch (e) { notice($("teamNotice"), e.message, false); }
-    });
-
-    $("btnCalc").addEventListener("click", calcProfit);
-    $("btnCalc重置").addEventListener("click", () => {
-      ["pSell","pSupply","pComm","pAnchor","pShip","pPack","pReturn","pFixed","pQty"].forEach(id => $(id).value = "");
-      $("pFixed").value = "0";
-      $("pQty").value = "100";
-      calcProfit();
-    });
-
-    $("btnExport客户s").addEventListener("click", () => {
-      const rows = getFiltered客户s().map(c => ({
-        id: c.id,
-        name: c.name,
-        phone: c.phone,
-        wechat: c.wechat || "",
-        city: c.city || "",
-        owner: c.owner || "",
-        channel: c.channel || "",
-        level: c.level || "",
-        status: c.status || "",
-        source: c.source || "",
-        tags: (c.tags || []).join("|"),
-        next跟进日期: c.next跟进日期 || "",
-        amount: Number(c.amount || 0).toFixed(2),
-        note: c.note || "",
-        lastFollow: c.lastFollow || ""
-      }));
-      exportCsv("客户数据.csv", rows);
-    });
-
-    $("btnExportFollows").addEventListener("click", () => {
-      const rows = follows.map(f => ({
-        id: f.id,
-        customerId: f.customerId,
-        customer姓名: f.customer姓名 || "",
-        date: f.date || "",
-        result: f.result || "",
-        next跟进日期: f.next跟进日期 || "",
-        content: f.content || ""
-      }));
-      exportCsv("跟进数据.csv", rows);
-    });
-
-    $("btnExportBackup").addEventListener("click", async () => {
-      try {
-        if (!me || me.role !== "boss") throw new Error("仅老板可操作。");
+        if (!me || me.role !== "boss") throw new Error("仅老板可导出");
         const data = await req("/api/backup/export", { method: "POST" });
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json;charset=utf-8" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `客户系统备份_${new 跟进日期().toISOString().slice(0, 10)}.json`;
+        a.download = `客户系统备份_${new Date().toISOString().slice(0,10)}.json`;
         a.click();
         URL.revokeObjectURL(a.href);
       } catch (e) { alert(e.message); }
-    });
+    };
+    $("btnCreateUser").onclick = async () => {
+      try {
+        await req("/api/users", { method: "POST", body: JSON.stringify({ username:$("uName").value.trim(), password:$("uPass").value.trim(), role:$("uRole").value }) });
+        notice($("teamNotice"), "账号创建成功");
+      } catch (e) { notice($("teamNotice"), e.message, false); }
+    };
+    $("btnResetPass").onclick = async () => {
+      try {
+        await req("/api/users/reset-password", { method: "POST", body: JSON.stringify({ username:$("rUser").value.trim(), newPassword:$("rPass").value.trim() }) });
+        notice($("teamNotice"), "密码重置成功");
+      } catch (e) { notice($("teamNotice"), e.message, false); }
+    };
 
-    $("f跟进日期").value = today();
+    $("fDate").value = today();
     calcProfit();
     boot();
   </script>
 </body>
 </html>
-
