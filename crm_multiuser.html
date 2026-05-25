@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -142,138 +142,138 @@
   <div class="wrap">
     <div class="topbar">
       <div>
-        <div class="title">Private CRM + Profit Tool</div>
-        <div class="sub" id="statusLine">Not logged in</div>
+        <div class="title">私域CRM + 利润工具</div>
+        <div class="sub" id="statusLine">未登录</div>
       </div>
       <div class="btns">
-        <button id="btnExportCustomers">Export Customers CSV</button>
-        <button id="btnExportFollows">Export Followups CSV</button>
-        <button id="btnExportBackup" class="warn hidden">Backup JSON</button>
-        <button id="btnLogout" class="danger hidden">Logout</button>
+        <button id="btnExport客户s">Export 客户s CSV</button>
+        <button id="btnExportFollows">导出跟进CSV</button>
+        <button id="btnExportBackup" class="warn hidden">备份JSON</button>
+        <button id="btn退出登录" class="danger hidden">退出登录</button>
       </div>
     </div>
 
     <div id="bootstrapCard" class="card hidden">
-      <div class="h2">Create First Admin</div>
-      <div class="small">First setup only. This account will be Boss.</div>
+      <div class="h2">创建第一管理员</div>
+      <div class="small">仅首次使用需要，这个账号是老板权限。</div>
       <div id="bootstrapNotice"></div>
       <div class="row row-2">
-        <div class="field"><label>Admin Username</label><input id="bootUser" /></div>
-        <div class="field"><label>Admin Password</label><input id="bootPass" type="password" /></div>
+        <div class="field"><label>Admin 用户名</label><input id="bootUser" /></div>
+        <div class="field"><label>Admin 密码</label><input id="bootPass" type="password" /></div>
       </div>
-      <div class="btns"><button class="primary" id="btnBootstrap">Create Admin</button></div>
+      <div class="btns"><button class="primary" id="btnBootstrap">创建管理员</button></div>
     </div>
 
     <div id="authCard" class="card hidden">
-      <div class="h2">Login</div>
+      <div class="h2">登录</div>
       <div id="authNotice"></div>
       <div class="row row-2">
-        <div class="field"><label>Username</label><input id="loginUser" /></div>
-        <div class="field"><label>Password</label><input id="loginPass" type="password" /></div>
+        <div class="field"><label>用户名</label><input id="loginUser" /></div>
+        <div class="field"><label>密码</label><input id="loginPass" type="password" /></div>
       </div>
-      <div class="btns"><button class="primary" id="btnLogin">Login</button></div>
+      <div class="btns"><button class="primary" id="btn登录">登录</button></div>
     </div>
 
     <div id="app" class="hidden row">
       <div class="row row-4">
-        <div class="kpi"><div class="small">Total Customers</div><div class="n" id="kTotal">0</div></div>
-        <div class="kpi"><div class="small">My Customers</div><div class="n" id="kMine">0</div></div>
-        <div class="kpi"><div class="small">Due In 7 Days</div><div class="n" id="kDue">0</div></div>
-        <div class="kpi"><div class="small">Total Amount</div><div class="n" id="kAmount">0</div></div>
+        <div class="kpi"><div class="small">Total 客户s</div><div class="n" id="kTotal">0</div></div>
+        <div class="kpi"><div class="small">My 客户s</div><div class="n" id="kMine">0</div></div>
+        <div class="kpi"><div class="small">7天内到期</div><div class="n" id="kDue">0</div></div>
+        <div class="kpi"><div class="small">Total 金额</div><div class="n" id="k金额">0</div></div>
       </div>
       <div class="row row-4">
-        <div class="kpi"><div class="small">New Leads</div><div class="n" id="kNew">0</div></div>
-        <div class="kpi"><div class="small">Following</div><div class="n" id="kFollow">0</div></div>
-        <div class="kpi"><div class="small">Hot</div><div class="n" id="kHot">0</div></div>
-        <div class="kpi"><div class="small">Closed</div><div class="n" id="kClosed">0</div></div>
+        <div class="kpi"><div class="small">新线索</div><div class="n" id="kNew">0</div></div>
+        <div class="kpi"><div class="small">跟进中</div><div class="n" id="kFollow">0</div></div>
+        <div class="kpi"><div class="small">高意向</div><div class="n" id="k高意向">0</div></div>
+        <div class="kpi"><div class="small">已成交</div><div class="n" id="k已成交">0</div></div>
       </div>
 
       <div class="split">
         <div class="card">
-          <div class="h2">New Customer</div>
+          <div class="h2">New 客户</div>
           <div id="createNotice"></div>
           <div class="row row-3">
-            <div class="field"><label>Name</label><input id="cName" /></div>
-            <div class="field"><label>Phone</label><input id="cPhone" /></div>
-            <div class="field"><label>Wechat</label><input id="cWechat" /></div>
+            <div class="field"><label>姓名</label><input id="c姓名" /></div>
+            <div class="field"><label>电话</label><input id="c电话" /></div>
+            <div class="field"><label>微信号</label><input id="c微信号" /></div>
           </div>
           <div class="row row-3">
-            <div class="field"><label>City</label><input id="cCity" /></div>
-            <div class="field"><label>Owner</label><input id="cOwner" /></div>
-            <div class="field"><label>Channel</label><input id="cChannel" /></div>
+            <div class="field"><label>城市</label><input id="c城市" /></div>
+            <div class="field"><label>负责人</label><input id="c负责人" /></div>
+            <div class="field"><label>渠道</label><input id="c渠道" /></div>
           </div>
           <div class="row row-3">
-            <div class="field"><label>Level</label><input id="cLevel" placeholder="A/B/C" /></div>
-            <div class="field"><label>Status</label><input id="cStatus" placeholder="New/Following/Hot" /></div>
-            <div class="field"><label>Source</label><input id="cSource" /></div>
+            <div class="field"><label>等级</label><input id="c等级" placeholder="A/B/C" /></div>
+            <div class="field"><label>状态</label><input id="c状态" placeholder="New/跟进中/高意向" /></div>
+            <div class="field"><label>来源</label><input id="c来源" /></div>
           </div>
           <div class="row row-3">
-            <div class="field"><label>Tags (comma)</label><input id="cTags" /></div>
-            <div class="field"><label>Next Follow Date</label><input id="cNextDate" type="date" /></div>
-            <div class="field"><label>Amount</label><input id="cAmount" type="number" step="0.01" /></div>
+            <div class="field"><label>标签s (comma)</label><input id="c标签s" /></div>
+            <div class="field"><label>下次 Follow 跟进日期</label><input id="c下次跟进日期" type="date" /></div>
+            <div class="field"><label>金额</label><input id="c金额" type="number" step="0.01" /></div>
           </div>
-          <div class="field"><label>Note</label><textarea id="cNote"></textarea></div>
+          <div class="field"><label>备注</label><textarea id="c备注"></textarea></div>
           <div class="btns">
-            <button class="ok" id="btnCreateCustomer">Save Customer</button>
-            <button id="btnClearCustomer">Clear</button>
+            <button class="ok" id="btnCreate客户">Save 客户</button>
+            <button id="btn清空客户">清空</button>
           </div>
         </div>
 
         <div class="card">
-          <div class="h2">Profit Calculator</div>
+          <div class="h2">利润测算</div>
           <div class="row row-2">
-            <div class="field"><label>Selling Price</label><input id="pSell" type="number" step="0.01" /></div>
-            <div class="field"><label>Supply Cost</label><input id="pSupply" type="number" step="0.01" /></div>
+            <div class="field"><label>售价</label><input id="pSell" type="number" step="0.01" /></div>
+            <div class="field"><label>供货价</label><input id="pSupply" type="number" step="0.01" /></div>
           </div>
           <div class="row row-2">
-            <div class="field"><label>Platform Commission %</label><input id="pComm" type="number" step="0.01" /></div>
-            <div class="field"><label>Anchor Commission %</label><input id="pAnchor" type="number" step="0.01" /></div>
+            <div class="field"><label>平台佣金 %</label><input id="pComm" type="number" step="0.01" /></div>
+            <div class="field"><label>主播佣金 %</label><input id="pAnchor" type="number" step="0.01" /></div>
           </div>
           <div class="row row-3">
-            <div class="field"><label>Shipping / Unit</label><input id="pShip" type="number" step="0.01" /></div>
-            <div class="field"><label>Packaging / Unit</label><input id="pPack" type="number" step="0.01" /></div>
-            <div class="field"><label>Return Rate %</label><input id="pReturn" type="number" step="0.01" /></div>
+            <div class="field"><label>运费 / 单</label><input id="pShip" type="number" step="0.01" /></div>
+            <div class="field"><label>包装费 / 单</label><input id="pPack" type="number" step="0.01" /></div>
+            <div class="field"><label>退货率 %</label><input id="pReturn" type="number" step="0.01" /></div>
           </div>
           <div class="row row-2">
-            <div class="field"><label>Fixed Cost</label><input id="pFixed" type="number" step="0.01" value="0" /></div>
-            <div class="field"><label>Target Sales Qty</label><input id="pQty" type="number" step="1" value="100" /></div>
+            <div class="field"><label>固定成本</label><input id="pFixed" type="number" step="0.01" value="0" /></div>
+            <div class="field"><label>目标销量</label><input id="pQty" type="number" step="1" value="100" /></div>
           </div>
           <div class="btns">
-            <button class="primary" id="btnCalc">Calculate</button>
-            <button id="btnCalcReset">Reset</button>
+            <button class="primary" id="btnCalc">计算</button>
+            <button id="btnCalc重置">重置</button>
           </div>
           <div class="row row-3" style="margin-top:10px;">
-            <div class="kpi"><div class="small">Gross Profit / Unit</div><div class="n" id="outGross">0</div></div>
-            <div class="kpi"><div class="small">Net Profit / Unit</div><div class="n" id="outNet">0</div></div>
-            <div class="kpi"><div class="small">Break-even Qty</div><div class="n" id="outBreak">0</div></div>
+            <div class="kpi"><div class="small">单件毛利</div><div class="n" id="outGross">0</div></div>
+            <div class="kpi"><div class="small">单件净利</div><div class="n" id="outNet">0</div></div>
+            <div class="kpi"><div class="small">保本销量</div><div class="n" id="outBreak">0</div></div>
           </div>
           <div class="card" style="margin-top:10px;padding:10px;">
-            <div class="small">Expected Net Profit at Qty</div>
+            <div class="small">按目标销量预计净利润</div>
             <div class="n" id="outQtyProfit">0</div>
           </div>
         </div>
       </div>
 
       <div id="bossPanel" class="card hidden">
-        <div class="h2">Team Management (Boss)</div>
+        <div class="h2">团队管理（老板）</div>
         <div id="teamNotice"></div>
         <div class="row row-3">
-          <div class="field"><label>New Username</label><input id="uName" /></div>
-          <div class="field"><label>Password</label><input id="uPass" type="password" /></div>
-          <div class="field"><label>Role</label>
-            <select id="uRole"><option value="staff">staff</option><option value="boss">boss</option></select>
+          <div class="field"><label>New 用户名</label><input id="u姓名" /></div>
+          <div class="field"><label>密码</label><input id="uPass" type="password" /></div>
+          <div class="field"><label>角色</label>
+            <select id="u角色"><option value="staff">staff</option><option value="boss">boss</option></select>
           </div>
         </div>
-        <div class="btns"><button class="primary" id="btnCreateUser">Create User</button></div>
+        <div class="btns"><button class="primary" id="btnCreateUser">创建账号</button></div>
         <hr style="border:none;border-top:1px solid var(--line);margin:12px 0;" />
         <div class="row row-2">
-          <div class="field"><label>Reset Username</label><input id="rUser" /></div>
-          <div class="field"><label>New Password</label><input id="rPass" type="password" /></div>
+          <div class="field"><label>重置 用户名</label><input id="rUser" /></div>
+          <div class="field"><label>New 密码</label><input id="rPass" type="password" /></div>
         </div>
-        <div class="btns"><button class="warn" id="btnResetPass">Reset Password</button></div>
+        <div class="btns"><button class="warn" id="btn重置Pass">重置 密码</button></div>
         <div style="margin-top:10px;overflow:auto;">
           <table id="userTable">
-            <thead><tr><th>ID</th><th>Username</th><th>Role</th><th>Created At</th></tr></thead>
+            <thead><tr><th>ID</th><th>用户名</th><th>角色</th><th>创建时间</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -281,71 +281,71 @@
 
       <div class="split">
         <div class="card">
-          <div class="h2">Bulk Import Customers</div>
-          <div class="small">Paste JSON array. Example: [{"name":"A","phone":"138..."}]</div>
+          <div class="h2">Bulk 开始导入 客户s</div>
+          <div class="small">粘贴 JSON 数组，例如：[{"name":"张三","phone":"138..."}]</div>
           <div id="importNotice"></div>
-          <div class="field"><label>JSON Data</label><textarea id="bulkJson" placeholder='[{"name":"Alice","phone":"13800138000","owner":"tom","status":"New"}]'></textarea></div>
+          <div class="field"><label>JSON 数据</label><textarea id="bulkJson" placeholder='[{"name":"Alice","phone":"13800138000","owner":"tom","status":"New"}]'></textarea></div>
           <div class="btns">
-            <button class="primary" id="btnBulkImport">Import</button>
-            <button id="btnClearBulk">Clear</button>
+            <button class="primary" id="btnBulk开始导入">开始导入</button>
+            <button id="btn清空Bulk">清空</button>
           </div>
         </div>
         <div class="card">
-          <div class="h2">Bulk Delete (Boss)</div>
-          <div class="small">Input customer IDs separated by comma, like: 12,15,18</div>
+          <div class="h2">批量删除（老板）</div>
+          <div class="small">输入客户ID，逗号分隔，例如：12,15,18</div>
           <div id="bulkDelNotice"></div>
           <div class="field"><label>IDs</label><input id="bulkDeleteIds" placeholder="1,2,3" /></div>
           <div class="btns">
-            <button class="danger" id="btnBulkDelete">Delete IDs</button>
+            <button class="danger" id="btnBulkDelete">批量删除</button>
           </div>
           <hr style="border:none;border-top:1px solid var(--line);margin:12px 0;" />
-          <div class="h2">Upcoming Followups</div>
+          <div class="h2">即将到期跟进</div>
           <div id="dueList" class="small"></div>
         </div>
       </div>
 
       <div class="split">
         <div class="card">
-          <div class="h2">Sales Funnel</div>
+          <div class="h2">销售漏斗</div>
           <div id="funnelStats" class="small"></div>
         </div>
         <div class="card">
-          <div class="h2">Owner Leaderboard</div>
+          <div class="h2">负责人 Leaderboard</div>
           <div id="ownerBoard" class="small"></div>
         </div>
       </div>
 
       <div class="card">
-        <div class="h2">Filters</div>
+        <div class="h2">筛选</div>
         <div class="row row-4">
-          <div class="field"><label>Keyword</label><input id="fKeyword" placeholder="name/phone/wechat/city/owner/channel" /></div>
-          <div class="field"><label>Owner</label><input id="fOwner" /></div>
-          <div class="field"><label>Status</label><input id="fStatus" /></div>
-          <div class="field"><label>City</label><input id="fCity" /></div>
+          <div class="field"><label>关键词</label><input id="f关键词" placeholder="name/phone/wechat/city/owner/channel" /></div>
+          <div class="field"><label>负责人</label><input id="f负责人" /></div>
+          <div class="field"><label>状态</label><input id="f状态" /></div>
+          <div class="field"><label>城市</label><input id="f城市" /></div>
         </div>
         <div class="row row-4">
-          <div class="field"><label>Tag</label><input id="fTag" /></div>
-          <div class="field"><label>Amount Min</label><input id="fAmountMin" type="number" step="0.01" /></div>
-          <div class="field"><label>Amount Max</label><input id="fAmountMax" type="number" step="0.01" /></div>
-          <div class="field"><label>Next Date Before</label><input id="fNextBefore" type="date" /></div>
+          <div class="field"><label>标签</label><input id="f标签" /></div>
+          <div class="field"><label>金额 Min</label><input id="f金额Min" type="number" step="0.01" /></div>
+          <div class="field"><label>最大金额</label><input id="f金额Max" type="number" step="0.01" /></div>
+          <div class="field"><label>下次 跟进日期 Before</label><input id="f下次Before" type="date" /></div>
         </div>
         <div class="btns">
-          <button class="primary" id="btnApplyFilter">Apply</button>
-          <button id="btnClearFilter">Clear</button>
-          <button id="btnSortAmount">Sort by Amount</button>
-          <button id="btnSortNextDate">Sort by Next Date</button>
+          <button class="primary" id="btn应用筛选Filter">应用筛选</button>
+          <button id="btn清空Filter">清空</button>
+          <button id="btnSort金额">按金额排序</button>
+          <button id="btnSort下次跟进日期">Sort by 下次 跟进日期</button>
         </div>
       </div>
 
       <div class="card">
-        <div class="h2">Customers</div>
-        <div class="small">Tip: click "Delete" carefully. This action is permanent.</div>
+        <div class="h2">客户s</div>
+        <div class="small">提示：删除后不可恢复，请谨慎操作。</div>
         <div style="overflow:auto; margin-top:8px;">
           <table id="customerTable">
             <thead>
               <tr>
-                <th>ID</th><th>Name</th><th>Phone</th><th>Wechat</th><th>City</th><th>Owner</th>
-                <th>Channel</th><th>Status</th><th>Amount</th><th>Next Date</th><th>Tags</th><th>Note</th><th>Action</th>
+                <th>ID</th><th>姓名</th><th>电话</th><th>微信号</th><th>城市</th><th>负责人</th>
+                <th>渠道</th><th>状态</th><th>金额</th><th>下次 跟进日期</th><th>标签s</th><th>备注</th><th>操作</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -355,28 +355,28 @@
 
       <div class="split">
         <div class="card">
-          <div class="h2">Add Followup</div>
+          <div class="h2">新增跟进</div>
           <div id="followNotice"></div>
           <div class="row row-2">
-            <div class="field"><label>Customer ID</label><input id="fCustomerId" type="number" /></div>
-            <div class="field"><label>Date</label><input id="fDate" type="date" /></div>
+            <div class="field"><label>客户ID</label><input id="f客户Id" type="number" /></div>
+            <div class="field"><label>跟进日期</label><input id="f跟进日期" type="date" /></div>
           </div>
           <div class="row row-2">
-            <div class="field"><label>Result</label><input id="fResult" placeholder="Connected / No answer / Qualified" /></div>
-            <div class="field"><label>Next Follow Date</label><input id="fNextDate2" type="date" /></div>
+            <div class="field"><label>跟进结果</label><input id="f跟进结果" placeholder="Connected / No answer / Qualified" /></div>
+            <div class="field"><label>下次 Follow 跟进日期</label><input id="f下次跟进日期2" type="date" /></div>
           </div>
-          <div class="field"><label>Content</label><textarea id="fContent"></textarea></div>
-          <div class="field"><label>Update Customer Status</label><input id="fStatus2" placeholder="Following / Hot / Closed" /></div>
+          <div class="field"><label>跟进内容</label><textarea id="f跟进内容"></textarea></div>
+          <div class="field"><label>Update 客户 状态</label><input id="f状态2" placeholder="跟进中 / 高意向 / 已成交" /></div>
           <div class="btns">
-            <button class="ok" id="btnAddFollow">Save Followup</button>
-            <button id="btnClearFollow">Clear</button>
+            <button class="ok" id="btnAddFollow">保存跟进</button>
+            <button id="btn清空Follow">清空</button>
           </div>
         </div>
         <div class="card">
-          <div class="h2">Recent Followups</div>
+          <div class="h2">最近跟进</div>
           <div style="overflow:auto;">
             <table id="followTable">
-              <thead><tr><th>ID</th><th>Customer</th><th>Date</th><th>Result</th><th>Next</th><th>Content</th></tr></thead>
+              <thead><tr><th>ID</th><th>客户</th><th>跟进日期</th><th>跟进结果</th><th>下次</th><th>跟进内容</th></tr></thead>
               <tbody></tbody>
             </table>
           </div>
@@ -396,7 +396,7 @@
 
     const $ = (id) => document.getElementById(id);
     const toNum = (v) => Number(v || 0);
-    const today = () => new Date().toISOString().slice(0, 10);
+    const today = () => new 跟进日期().toISOString().slice(0, 10);
     const esc = (s) => String(s ?? "").replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
 
     function notice(el, text, ok = true) {
@@ -404,7 +404,7 @@
     }
 
     async function req(path, options = {}) {
-      const headers = Object.assign({ "Content-Type": "application/json" }, options.headers || {});
+      const headers = Object.assign({ "跟进内容-Type": "application/json" }, options.headers || {});
       if (token) headers.Authorization = "Bearer " + token;
       const res = await fetch(API + path, Object.assign({}, options, { headers }));
       const ct = res.headers.get("content-type") || "";
@@ -416,39 +416,39 @@
       return body;
     }
 
-    function setStatusLine() {
-      const base = me ? `Logged in: ${me.username} (${me.role})` : "Not logged in";
-      $("statusLine").textContent = `${base} | ${new Date().toLocaleString()}`;
+    function set状态Line() {
+      const base = me ? `已登录： ${me.username} (${me.role})` : "未登录";
+      $("statusLine").text跟进内容 = `${base} | ${new 跟进日期().toLocaleString()}`;
     }
 
     function showAuth(needBootstrap) {
       $("app").classList.add("hidden");
-      $("btnLogout").classList.add("hidden");
+      $("btn退出登录").classList.add("hidden");
       $("bootstrapCard").classList.toggle("hidden", !needBootstrap);
       $("authCard").classList.toggle("hidden", needBootstrap);
       me = null;
-      setStatusLine();
+      set状态Line();
     }
 
     function showApp() {
       $("bootstrapCard").classList.add("hidden");
       $("authCard").classList.add("hidden");
       $("app").classList.remove("hidden");
-      $("btnLogout").classList.remove("hidden");
+      $("btn退出登录").classList.remove("hidden");
       $("btnExportBackup").classList.toggle("hidden", !me || me.role !== "boss");
       $("bossPanel").classList.toggle("hidden", !me || me.role !== "boss");
-      setStatusLine();
+      set状态Line();
     }
 
     function customerMatch(c) {
-      const kw = $("fKeyword").value.trim().toLowerCase();
-      const owner = $("fOwner").value.trim().toLowerCase();
-      const status = $("fStatus").value.trim().toLowerCase();
-      const city = $("fCity").value.trim().toLowerCase();
-      const tag = $("fTag").value.trim().toLowerCase();
-      const min = $("fAmountMin").value.trim();
-      const max = $("fAmountMax").value.trim();
-      const nextBefore = $("fNextBefore").value.trim();
+      const kw = $("f关键词").value.trim().toLowerCase();
+      const owner = $("f负责人").value.trim().toLowerCase();
+      const status = $("f状态").value.trim().toLowerCase();
+      const city = $("f城市").value.trim().toLowerCase();
+      const tag = $("f标签").value.trim().toLowerCase();
+      const min = $("f金额Min").value.trim();
+      const max = $("f金额Max").value.trim();
+      const nextBefore = $("f下次Before").value.trim();
 
       const blob = `${c.name} ${c.phone} ${c.wechat} ${c.city} ${c.owner} ${c.channel}`.toLowerCase();
       if (kw && !blob.includes(kw)) return false;
@@ -458,16 +458,16 @@
       if (tag && !(c.tags || []).join(",").toLowerCase().includes(tag)) return false;
       if (min && Number(c.amount || 0) < Number(min)) return false;
       if (max && Number(c.amount || 0) > Number(max)) return false;
-      if (nextBefore && c.nextDate && c.nextDate > nextBefore) return false;
+      if (nextBefore && c.next跟进日期 && c.next跟进日期 > nextBefore) return false;
       return true;
     }
 
-    function getFilteredCustomers() {
+    function getFiltered客户s() {
       return customers.filter(customerMatch);
     }
 
-    function renderCustomers() {
-      const arr = getFilteredCustomers();
+    function render客户s() {
+      const arr = getFiltered客户s();
       const tbody = $("customerTable").querySelector("tbody");
       tbody.innerHTML = arr.map(c => `
         <tr>
@@ -480,7 +480,7 @@
           <td>${esc(c.channel || "")}</td>
           <td>${esc(c.status || "")}</td>
           <td>${Number(c.amount || 0).toFixed(2)}</td>
-          <td>${esc(c.nextDate || "")}</td>
+          <td>${esc(c.next跟进日期 || "")}</td>
           <td>${(c.tags || []).map(t => `<span class="badge">${esc(t)}</span>`).join("")}</td>
           <td>${esc(c.note || "")}</td>
           <td>
@@ -498,13 +498,13 @@
           const cid = Number(btn.dataset.edit);
           const c = customers.find(x => x.id === cid);
           if (!c) return;
-          const name = prompt("Name", c.name || "");
+          const name = prompt("姓名", c.name || "");
           if (name === null) return;
-          const phone = prompt("Phone", c.phone || "");
+          const phone = prompt("电话", c.phone || "");
           if (phone === null) return;
-          const status = prompt("Status", c.status || "");
+          const status = prompt("状态", c.status || "");
           if (status === null) return;
-          const amount = prompt("Amount", String(c.amount || 0));
+          const amount = prompt("金额", String(c.amount || 0));
           if (amount === null) return;
           try {
             await req(`/api/customers/${cid}`, {
@@ -535,7 +535,7 @@
                 status: c.status || "New",
                 source: c.source || "",
                 tags: c.tags || [],
-                nextDate: c.nextDate || "",
+                next跟进日期: c.next跟进日期 || "",
                 amount: Number(c.amount || 0),
                 note: c.note || ""
               })
@@ -547,7 +547,7 @@
 
       tbody.querySelectorAll("button[data-del]").forEach(btn => {
         btn.addEventListener("click", async () => {
-          if (!confirm("Delete this customer?")) return;
+          if (!confirm("确认删除这个客户吗？")) return;
           try {
             await req(`/api/customers/${btn.dataset.del}`, { method: "DELETE" });
             await reloadData();
@@ -558,33 +558,33 @@
       renderKpi(arr);
       renderDueList(arr);
       renderFunnel(arr);
-      renderOwnerBoard(arr);
+      render负责人Board(arr);
     }
 
     function renderKpi(arr) {
       const total = customers.length;
       const mine = customers.filter(c => !me ? false : c.owner === me.username).length;
-      const due = arr.filter(c => c.nextDate && c.nextDate <= addDays(today(), 7)).length;
+      const due = arr.filter(c => c.next跟进日期 && c.next跟进日期 <= addDays(today(), 7)).length;
       const amount = arr.reduce((s, c) => s + Number(c.amount || 0), 0);
       const by = (name) => arr.filter(c => String(c.status || "").toLowerCase() === name).length;
-      $("kTotal").textContent = total;
-      $("kMine").textContent = mine;
-      $("kDue").textContent = due;
-      $("kAmount").textContent = amount.toFixed(2);
-      $("kNew").textContent = by("new");
-      $("kFollow").textContent = by("following");
-      $("kHot").textContent = by("hot");
-      $("kClosed").textContent = by("closed");
+      $("kTotal").text跟进内容 = total;
+      $("kMine").text跟进内容 = mine;
+      $("kDue").text跟进内容 = due;
+      $("k金额").text跟进内容 = amount.toFixed(2);
+      $("kNew").text跟进内容 = by("new");
+      $("kFollow").text跟进内容 = by("following");
+      $("k高意向").text跟进内容 = by("hot");
+      $("k已成交").text跟进内容 = by("closed");
     }
 
     function renderDueList(arr) {
       const due = arr
-        .filter(c => c.nextDate)
-        .sort((a, b) => (a.nextDate || "9999-12-31").localeCompare(b.nextDate || "9999-12-31"))
+        .filter(c => c.next跟进日期)
+        .sort((a, b) => (a.next跟进日期 || "9999-12-31").localeCompare(b.next跟进日期 || "9999-12-31"))
         .slice(0, 10);
       $("dueList").innerHTML = due.length
-        ? due.map(c => `<div>#${c.id} ${esc(c.name)} - ${esc(c.nextDate)} (${esc(c.owner || "")})</div>`).join("")
-        : "No upcoming followups.";
+        ? due.map(c => `<div>#${c.id} ${esc(c.name)} - ${esc(c.next跟进日期)} (${esc(c.owner || "")})</div>`).join("")
+        : "暂无即将到期跟进。";
     }
 
     function renderFunnel(arr) {
@@ -597,7 +597,7 @@
       }).join("");
     }
 
-    function renderOwnerBoard(arr) {
+    function render负责人Board(arr) {
       const map = {};
       for (const c of arr) {
         const o = c.owner || "Unassigned";
@@ -611,7 +611,7 @@
         .slice(0, 10);
       $("ownerBoard").innerHTML = rows.length
         ? rows.map((r, i) => `<div style="margin-bottom:8px;">${i + 1}. <b>${esc(r.owner)}</b> - ${r.count} customers - ${r.amount.toFixed(2)}</div>`).join("")
-        : "No data.";
+        : "暂无数据。";
     }
 
     function renderFollows() {
@@ -619,10 +619,10 @@
       tbody.innerHTML = follows.map(f => `
         <tr>
           <td>${f.id}</td>
-          <td>${esc(f.customerName || "")}</td>
+          <td>${esc(f.customer姓名 || "")}</td>
           <td>${esc(f.date || "")}</td>
           <td>${esc(f.result || "")}</td>
-          <td>${esc(f.nextDate || "")}</td>
+          <td>${esc(f.next跟进日期 || "")}</td>
           <td>${esc(f.content || "")}</td>
         </tr>
       `).join("");
@@ -640,8 +640,8 @@
 
     function addDays(dateStr, n) {
       if (!dateStr) return "";
-      const d = new Date(dateStr + "T00:00:00");
-      d.setDate(d.getDate() + n);
+      const d = new 跟进日期(dateStr + "T00:00:00");
+      d.set跟进日期(d.get跟进日期() + n);
       return d.toISOString().slice(0, 10);
     }
 
@@ -649,7 +649,7 @@
       const [c, f] = await Promise.all([req("/api/customers"), req("/api/follows")]);
       customers = c.customers || [];
       follows = f.follows || [];
-      renderCustomers();
+      render客户s();
       renderFollows();
       if (me && me.role === "boss") {
         const u = await req("/api/users");
@@ -659,33 +659,33 @@
     }
 
     function customerPayloadFromForm() {
-      const tags = $("cTags").value.split(",").map(v => v.trim()).filter(Boolean);
+      const tags = $("c标签s").value.split(",").map(v => v.trim()).filter(Boolean);
       return {
-        name: $("cName").value.trim(),
-        phone: $("cPhone").value.trim(),
-        wechat: $("cWechat").value.trim(),
-        city: $("cCity").value.trim(),
-        owner: $("cOwner").value.trim(),
-        channel: $("cChannel").value.trim(),
-        level: $("cLevel").value.trim(),
-        status: $("cStatus").value.trim(),
-        source: $("cSource").value.trim(),
+        name: $("c姓名").value.trim(),
+        phone: $("c电话").value.trim(),
+        wechat: $("c微信号").value.trim(),
+        city: $("c城市").value.trim(),
+        owner: $("c负责人").value.trim(),
+        channel: $("c渠道").value.trim(),
+        level: $("c等级").value.trim(),
+        status: $("c状态").value.trim(),
+        source: $("c来源").value.trim(),
         tags,
-        nextDate: $("cNextDate").value,
-        amount: toNum($("cAmount").value),
-        note: $("cNote").value.trim(),
+        next跟进日期: $("c下次跟进日期").value,
+        amount: toNum($("c金额").value),
+        note: $("c备注").value.trim(),
         lastFollow: ""
       };
     }
 
-    function clearCustomerForm() {
-      ["cName","cPhone","cWechat","cCity","cOwner","cChannel","cLevel","cStatus","cSource","cTags","cNextDate","cAmount","cNote"]
+    function clear客户Form() {
+      ["c姓名","c电话","c微信号","c城市","c负责人","c渠道","c等级","c状态","c来源","c标签s","c下次跟进日期","c金额","c备注"]
         .forEach(id => $(id).value = "");
     }
 
     function clearFollowForm() {
-      ["fCustomerId","fResult","fNextDate2","fContent","fStatus2"].forEach(id => $(id).value = "");
-      $("fDate").value = today();
+      ["f客户Id","f跟进结果","f下次跟进日期2","f跟进内容","f状态2"].forEach(id => $(id).value = "");
+      $("f跟进日期").value = today();
     }
 
     function calcProfit() {
@@ -705,14 +705,14 @@
       const breakEven = net > 0 ? Math.ceil(fixed / net) : 0;
       const qtyProfit = qty * net - fixed;
 
-      $("outGross").textContent = gross.toFixed(2);
-      $("outNet").textContent = net.toFixed(2);
-      $("outBreak").textContent = String(breakEven);
-      $("outQtyProfit").textContent = qtyProfit.toFixed(2);
+      $("outGross").text跟进内容 = gross.toFixed(2);
+      $("outNet").text跟进内容 = net.toFixed(2);
+      $("outBreak").text跟进内容 = String(breakEven);
+      $("outQtyProfit").text跟进内容 = qtyProfit.toFixed(2);
     }
 
     function exportCsv(filename, rows) {
-      if (!rows.length) return alert("No data to export.");
+      if (!rows.length) return alert("暂无可导出数据。");
       const keys = Object.keys(rows[0]);
       const lines = [keys.join(",")].concat(rows.map(r => keys.map(k => {
         const val = r[k] == null ? "" : String(r[k]).replaceAll("\"", "\"\"");
@@ -751,12 +751,12 @@
           method: "POST",
           body: JSON.stringify({ username: $("bootUser").value.trim(), password: $("bootPass").value.trim() })
         });
-        notice($("bootstrapNotice"), "Admin created. Please login.");
+        notice($("bootstrapNotice"), "管理员创建成功，请登录。");
         showAuth(false);
       } catch (e) { notice($("bootstrapNotice"), e.message, false); }
     });
 
-    $("btnLogin").addEventListener("click", async () => {
+    $("btn登录").addEventListener("click", async () => {
       try {
         const r = await req("/api/login", {
           method: "POST",
@@ -770,7 +770,7 @@
       } catch (e) { notice($("authNotice"), e.message, false); }
     });
 
-    $("btnLogout").addEventListener("click", async () => {
+    $("btn退出登录").addEventListener("click", async () => {
       try { await req("/api/logout", { method: "POST" }); } catch (_) {}
       token = "";
       me = null;
@@ -778,81 +778,81 @@
       showAuth(false);
     });
 
-    $("btnCreateCustomer").addEventListener("click", async () => {
+    $("btnCreate客户").addEventListener("click", async () => {
       try {
         const p = customerPayloadFromForm();
-        if (!p.name || !p.phone) throw new Error("Name and phone are required.");
+        if (!p.name || !p.phone) throw new Error("姓名 and phone are required.");
         await req("/api/customers", { method: "POST", body: JSON.stringify(p) });
-        notice($("createNotice"), "Customer saved.");
-        clearCustomerForm();
+        notice($("createNotice"), "客户已保存。");
+        clear客户Form();
         await reloadData();
       } catch (e) { notice($("createNotice"), e.message, false); }
     });
 
-    $("btnClearCustomer").addEventListener("click", clearCustomerForm);
+    $("btn清空客户").addEventListener("click", clear客户Form);
 
     $("btnAddFollow").addEventListener("click", async () => {
       try {
         const payload = {
-          customerId: toNum($("fCustomerId").value),
-          date: $("fDate").value || today(),
-          content: $("fContent").value.trim(),
-          nextDate: $("fNextDate2").value,
-          result: $("fResult").value.trim(),
-          status: $("fStatus2").value.trim()
+          customerId: toNum($("f客户Id").value),
+          date: $("f跟进日期").value || today(),
+          content: $("f跟进内容").value.trim(),
+          next跟进日期: $("f下次跟进日期2").value,
+          result: $("f跟进结果").value.trim(),
+          status: $("f状态2").value.trim()
         };
-        if (!payload.customerId) throw new Error("Customer ID is required.");
+        if (!payload.customerId) throw new Error("客户ID is required.");
         await req("/api/follows", { method: "POST", body: JSON.stringify(payload) });
-        notice($("followNotice"), "Followup saved.");
+        notice($("followNotice"), "跟进已保存。");
         clearFollowForm();
         await reloadData();
       } catch (e) { notice($("followNotice"), e.message, false); }
     });
 
-    $("btnClearFollow").addEventListener("click", clearFollowForm);
-    $("btnApplyFilter").addEventListener("click", renderCustomers);
-    $("btnClearFilter").addEventListener("click", () => {
-      ["fKeyword","fOwner","fStatus","fCity","fTag","fAmountMin","fAmountMax","fNextBefore"].forEach(id => $(id).value = "");
-      renderCustomers();
+    $("btn清空Follow").addEventListener("click", clearFollowForm);
+    $("btn应用筛选Filter").addEventListener("click", render客户s);
+    $("btn清空Filter").addEventListener("click", () => {
+      ["f关键词","f负责人","f状态","f城市","f标签","f金额Min","f金额Max","f下次Before"].forEach(id => $(id).value = "");
+      render客户s();
     });
 
-    $("btnSortAmount").addEventListener("click", () => {
+    $("btnSort金额").addEventListener("click", () => {
       sortState.amountAsc = !sortState.amountAsc;
       customers.sort((a, b) => sortState.amountAsc ? (Number(a.amount||0)-Number(b.amount||0)) : (Number(b.amount||0)-Number(a.amount||0)));
-      renderCustomers();
+      render客户s();
     });
 
-    $("btnSortNextDate").addEventListener("click", () => {
+    $("btnSort下次跟进日期").addEventListener("click", () => {
       sortState.nextAsc = !sortState.nextAsc;
       customers.sort((a, b) => {
-        const x = a.nextDate || "9999-12-31";
-        const y = b.nextDate || "9999-12-31";
+        const x = a.next跟进日期 || "9999-12-31";
+        const y = b.next跟进日期 || "9999-12-31";
         return sortState.nextAsc ? x.localeCompare(y) : y.localeCompare(x);
       });
-      renderCustomers();
+      render客户s();
     });
 
-    $("btnBulkImport").addEventListener("click", async () => {
+    $("btnBulk开始导入").addEventListener("click", async () => {
       try {
         const raw = $("bulkJson").value.trim();
-        if (!raw) throw new Error("Please input JSON data.");
+        if (!raw) throw new Error("请先输入JSON数据。");
         const items = JSON.parse(raw);
-        if (!Array.isArray(items)) throw new Error("JSON must be array.");
+        if (!Array.isArray(items)) throw new Error("JSON格式必须是数组。");
         const r = await req("/api/customers/bulk", { method: "POST", body: JSON.stringify({ items }) });
-        notice($("importNotice"), `Import done. Created ${r.created} customers.`);
+        notice($("importNotice"), `开始导入 done. Created ${r.created} customers.`);
         await reloadData();
       } catch (e) { notice($("importNotice"), e.message, false); }
     });
 
-    $("btnClearBulk").addEventListener("click", () => {
+    $("btn清空Bulk").addEventListener("click", () => {
       $("bulkJson").value = "";
     });
 
     $("btnBulkDelete").addEventListener("click", async () => {
       try {
-        if (!me || me.role !== "boss") throw new Error("Boss only.");
+        if (!me || me.role !== "boss") throw new Error("仅老板可操作。");
         const ids = $("bulkDeleteIds").value.split(",").map(v => Number(v.trim())).filter(v => Number.isFinite(v) && v > 0);
-        if (!ids.length) throw new Error("Please input valid IDs.");
+        if (!ids.length) throw new Error("请输入有效ID。");
         if (!confirm(`Delete ${ids.length} customers?`)) return;
         const r = await req("/api/customers", { method: "DELETE", body: JSON.stringify({ ids }) });
         notice($("bulkDelNotice"), `Deleted ${r.deleted} customers.`);
@@ -866,38 +866,38 @@
         await req("/api/users", {
           method: "POST",
           body: JSON.stringify({
-            username: $("uName").value.trim(),
+            username: $("u姓名").value.trim(),
             password: $("uPass").value.trim(),
-            role: $("uRole").value
+            role: $("u角色").value
           })
         });
-        notice($("teamNotice"), "User created.");
-        $("uName").value = ""; $("uPass").value = "";
+        notice($("teamNotice"), "账号创建成功。");
+        $("u姓名").value = ""; $("uPass").value = "";
         await reloadData();
       } catch (e) { notice($("teamNotice"), e.message, false); }
     });
 
-    $("btnResetPass").addEventListener("click", async () => {
+    $("btn重置Pass").addEventListener("click", async () => {
       try {
         await req("/api/users/reset-password", {
           method: "POST",
-          body: JSON.stringify({ username: $("rUser").value.trim(), newPassword: $("rPass").value.trim() })
+          body: JSON.stringify({ username: $("rUser").value.trim(), new密码: $("rPass").value.trim() })
         });
-        notice($("teamNotice"), "Password reset done.");
+        notice($("teamNotice"), "密码 reset done.");
         $("rUser").value = ""; $("rPass").value = "";
       } catch (e) { notice($("teamNotice"), e.message, false); }
     });
 
     $("btnCalc").addEventListener("click", calcProfit);
-    $("btnCalcReset").addEventListener("click", () => {
+    $("btnCalc重置").addEventListener("click", () => {
       ["pSell","pSupply","pComm","pAnchor","pShip","pPack","pReturn","pFixed","pQty"].forEach(id => $(id).value = "");
       $("pFixed").value = "0";
       $("pQty").value = "100";
       calcProfit();
     });
 
-    $("btnExportCustomers").addEventListener("click", () => {
-      const rows = getFilteredCustomers().map(c => ({
+    $("btnExport客户s").addEventListener("click", () => {
+      const rows = getFiltered客户s().map(c => ({
         id: c.id,
         name: c.name,
         phone: c.phone,
@@ -909,43 +909,44 @@
         status: c.status || "",
         source: c.source || "",
         tags: (c.tags || []).join("|"),
-        nextDate: c.nextDate || "",
+        next跟进日期: c.next跟进日期 || "",
         amount: Number(c.amount || 0).toFixed(2),
         note: c.note || "",
         lastFollow: c.lastFollow || ""
       }));
-      exportCsv("customers.csv", rows);
+      exportCsv("客户数据.csv", rows);
     });
 
     $("btnExportFollows").addEventListener("click", () => {
       const rows = follows.map(f => ({
         id: f.id,
         customerId: f.customerId,
-        customerName: f.customerName || "",
+        customer姓名: f.customer姓名 || "",
         date: f.date || "",
         result: f.result || "",
-        nextDate: f.nextDate || "",
+        next跟进日期: f.next跟进日期 || "",
         content: f.content || ""
       }));
-      exportCsv("followups.csv", rows);
+      exportCsv("跟进数据.csv", rows);
     });
 
     $("btnExportBackup").addEventListener("click", async () => {
       try {
-        if (!me || me.role !== "boss") throw new Error("Boss only.");
+        if (!me || me.role !== "boss") throw new Error("仅老板可操作。");
         const data = await req("/api/backup/export", { method: "POST" });
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json;charset=utf-8" });
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `crm_backup_${new Date().toISOString().slice(0, 10)}.json`;
+        a.download = `客户系统备份_${new 跟进日期().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(a.href);
       } catch (e) { alert(e.message); }
     });
 
-    $("fDate").value = today();
+    $("f跟进日期").value = today();
     calcProfit();
     boot();
   </script>
 </body>
 </html>
+
