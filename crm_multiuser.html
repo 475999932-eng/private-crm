@@ -3,48 +3,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>私域客户管理系统（多人版）</title>
+  <title>Private CRM</title>
   <style>
-    :root{--bg:#f4f7fb;--panel:#fff;--ink:#162032;--muted:#667085;--line:#dbe3ef;--acc:#155eef;--good:#0f766e;--danger:#b42318}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(180deg,#f8fbff,#eef4fb);color:var(--ink)}
-    .app{max-width:1260px;margin:0 auto;padding:18px;display:grid;gap:12px}
+    :root{--panel:#fff;--bg:#f4f7fb;--line:#dbe3ef;--text:#162032;--muted:#667085;--pri:#155eef;--ok:#0f766e;--warn:#9a3412;--bad:#b42318}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#f8fbff,#eef4fb);font-family:"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;color:var(--text)}
+    .app{max-width:1260px;margin:0 auto;padding:16px;display:grid;gap:12px}
     .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
     .top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
-    h1{margin:0;font-size:20px}.sub{margin:4px 0 0;color:var(--muted);font-size:13px}
-    button,input,select,textarea{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:13px}
-    button{cursor:pointer;background:#fff} button.primary{background:var(--acc);border-color:var(--acc);color:#fff} button.good{background:var(--good);border-color:var(--good);color:#fff}
-    .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px} .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    h1{margin:0;font-size:20px} h2{margin:0 0 8px;font-size:16px} h3{margin:0 0 8px;font-size:14px}
+    .sub{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:12px}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .kpis{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px}
+    .kpi{border:1px solid var(--line);background:#fbfdff;border-radius:8px;padding:10px}
+    .kpi b{display:block;font-size:22px;margin-top:4px}
     .toolbar{display:grid;grid-template-columns:1fr 130px 130px 130px 130px;gap:8px;margin-bottom:8px}
     .form{display:grid;gap:8px}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    input,select,textarea,button{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+    button{cursor:pointer;background:#fff} button.primary{background:var(--pri);border-color:var(--pri);color:#fff} button.good{background:var(--ok);border-color:var(--ok);color:#fff}
     table{width:100%;border-collapse:collapse;font-size:13px} th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-    th{font-size:12px;color:var(--muted)} .muted{font-size:12px;color:var(--muted)}
-    .kpis{display:grid;grid-template-columns:repeat(4,minmax(120px,1fr));gap:8px}
-    .kpi{border:1px solid var(--line);border-radius:8px;padding:10px;background:#fbfdff} .kpi b{display:block;font-size:22px;margin-top:4px}
+    th{font-size:12px;color:var(--muted)}
     .status{display:inline-block;border-radius:999px;padding:2px 8px;font-size:12px;font-weight:600}
-    .s-new{color:#155eef;background:#eef4ff}.s-follow{color:#9a3412;background:#fff5e8}.s-deal{color:#0f766e;background:#e9fbf8}.s-lost{color:#b42318;background:#fff1f1}
+    .s-new{color:#155eef;background:#eef4ff}.s-follow{color:var(--warn);background:#fff5e8}.s-deal{color:var(--ok);background:#e9fbf8}.s-lost{color:var(--bad);background:#fff1f1}
     .tag{display:inline-block;border:1px solid #b9d6ff;color:#114a9f;background:#eef5ff;border-radius:999px;padding:2px 8px;margin:2px 4px 2px 0;font-size:12px}
     .timeline{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px;background:#fcfdff}
     .event{border-left:2px solid #bad3ff;padding:6px 8px;margin:0 0 8px 6px}
-    .hidden{display:none}
+    .muted{font-size:12px;color:var(--muted)} .hidden{display:none}
     @media (max-width:980px){.grid,.split{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.row{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
 <div class="app">
-  <section class="panel" id="authPanel">
+  <section id="authPanel" class="panel">
     <div class="top">
-      <div><h1>私域客户管理系统（多人共享版）</h1><p class="sub">账号登录 + 统一数据库，多人看到同一份业务数据</p></div>
+      <div>
+        <h1>私域客户管理系统（多人版）</h1>
+        <p class="sub">登录、权限、共享客户库、团队协作</p>
+      </div>
     </div>
-    <div class="split" style="margin-top:10px;">
+    <div id="bootstrapPanel" class="panel hidden" style="margin-top:10px;">
+      <h3>首次初始化管理员</h3>
+      <p class="sub">系统尚无账号，请先创建老板账号。</p>
+      <form id="bootstrapForm" class="form" style="max-width:460px;">
+        <input id="bootUser" placeholder="管理员用户名" required />
+        <input id="bootPass" type="password" placeholder="管理员密码" required />
+        <button class="good" type="submit">创建管理员</button>
+      </form>
+    </div>
+    <div id="authForms" class="split" style="margin-top:10px;">
       <form id="loginForm" class="form panel" style="margin:0;">
-        <h3 style="margin:0;">登录</h3>
+        <h3>登录</h3>
         <input id="loginUser" placeholder="用户名" required />
         <input id="loginPass" type="password" placeholder="密码" required />
         <button class="primary" type="submit">登录</button>
       </form>
       <form id="registerForm" class="form panel" style="margin:0;">
-        <h3 style="margin:0;">注册</h3>
+        <h3>注册（仅初始化阶段可用）</h3>
         <input id="regUser" placeholder="用户名" required />
         <input id="regPass" type="password" placeholder="密码" required />
         <select id="regRole"><option value="staff">员工</option><option value="boss">老板</option></select>
@@ -56,17 +70,37 @@
 
   <div id="appMain" class="hidden">
     <section class="panel top">
-      <div>
-        <h1 style="font-size:18px;">客户总览</h1>
-        <p class="sub" id="whoami"></p>
-      </div>
+      <div><h1 style="font-size:18px;">业务总览</h1><p id="whoami" class="sub"></p></div>
       <button id="logoutBtn">退出登录</button>
     </section>
 
-    <section class="panel"><div class="kpis" id="kpis"></div></section>
+    <section class="panel"><div id="kpis" class="kpis"></div></section>
+
+    <section id="teamPanel" class="panel hidden">
+      <h2>团队管理（老板）</h2>
+      <div class="split">
+        <form id="createUserForm" class="form panel" style="margin:0;">
+          <h3>新增账号</h3>
+          <input id="newUsername" placeholder="用户名" required />
+          <input id="newPassword" type="password" placeholder="初始密码" required />
+          <select id="newRole"><option value="staff">员工</option><option value="boss">老板</option></select>
+          <button class="good" type="submit">创建账号</button>
+        </form>
+        <form id="resetPwdForm" class="form panel" style="margin:0;">
+          <h3>重置密码</h3>
+          <select id="resetUser" required></select>
+          <input id="resetPassword" type="password" placeholder="新密码" required />
+          <button class="primary" type="submit">重置密码</button>
+        </form>
+      </div>
+      <div class="panel" style="margin-top:10px;">
+        <h3>账号列表</h3>
+        <table><thead><tr><th>用户名</th><th>角色</th><th>创建时间</th></tr></thead><tbody id="userTable"></tbody></table>
+      </div>
+    </section>
 
     <section class="panel">
-      <h2 style="margin:0 0 8px;">利润测算工具</h2>
+      <h2>利润测算工具</h2>
       <div class="split">
         <div class="form">
           <div class="row"><input id="salePrice" type="number" step="0.01" placeholder="售价" value="99"><input id="supplyPrice" type="number" step="0.01" placeholder="供货价" value="45"></div>
@@ -80,7 +114,7 @@
 
     <section class="grid">
       <section class="panel">
-        <h2 style="margin:0 0 8px;">客户池</h2>
+        <h2>客户池</h2>
         <div class="toolbar">
           <input id="searchInput" placeholder="搜索客户名/手机/微信/标签..." />
           <select id="statusFilter"><option value="">全部状态</option><option>新线索</option><option>跟进中</option><option>已成交</option><option>已流失</option></select>
@@ -91,16 +125,16 @@
         <table><thead><tr><th>客户</th><th>微信号/城市</th><th>负责人/渠道</th><th>分层/状态</th><th>标签</th><th>上次跟进</th><th>下次计划</th><th>操作</th></tr></thead><tbody id="customerTbody"></tbody></table>
       </section>
       <section class="panel">
-        <h2 style="margin:0 0 8px;">新增客户</h2>
+        <h2>新增客户</h2>
         <form id="customerForm" class="form">
-          <div class="row"><input required name="name" placeholder="客户姓名"><input required name="phone" placeholder="手机号"></div>
+          <div class="row"><input name="name" required placeholder="客户姓名"><input name="phone" required placeholder="手机号"></div>
           <div class="row"><input name="wechat" placeholder="微信号"><input name="city" placeholder="城市"></div>
           <div class="row"><select name="level" required><option value="">客户分层</option><option>A类高意向</option><option>B类培育中</option><option>C类待激活</option></select><select name="status" required><option value="">跟进状态</option><option>新线索</option><option>跟进中</option><option>已成交</option><option>已流失</option></select></div>
           <div class="row"><input name="owner" placeholder="负责人（员工默认自己）"><input name="channel" placeholder="渠道"></div>
           <input name="source" placeholder="来源">
           <input name="tags" placeholder="标签，逗号分隔">
           <div class="row"><input name="nextDate" type="date"><input name="amount" type="number" step="0.01" placeholder="成交金额（可选）"></div>
-          <textarea name="note" rows="3" placeholder="客户备注"></textarea>
+          <textarea name="note" rows="3" placeholder="备注"></textarea>
           <button class="good" type="submit">保存客户</button>
         </form>
       </section>
@@ -108,7 +142,7 @@
 
     <section class="grid">
       <section class="panel">
-        <h2 style="margin:0 0 8px;">跟进记录</h2>
+        <h2>跟进记录</h2>
         <form id="followForm" class="form">
           <div class="row"><select id="followCustomer" required></select><input id="followDate" type="date" required></div>
           <textarea id="followContent" rows="3" placeholder="本次跟进内容"></textarea>
@@ -116,7 +150,7 @@
           <button class="primary" type="submit">添加跟进记录</button>
         </form>
       </section>
-      <section class="panel"><h2 style="margin:0 0 8px;">最近动态</h2><div id="timeline" class="timeline"></div></section>
+      <section class="panel"><h2>最近动态</h2><div id="timeline" class="timeline"></div></section>
     </section>
   </div>
 </div>
@@ -128,20 +162,31 @@ let token = localStorage.getItem("crm_token") || "";
 let user = null;
 let customers = [];
 let follows = [];
-const authMsg = document.getElementById("authMsg");
+let users = [];
 
+const authMsg = document.getElementById("authMsg");
 function setMsg(t){authMsg.textContent=t||""}
 function hdr(){return token?{"Authorization":"Bearer "+token,"Content-Type":"application/json"}:{"Content-Type":"application/json"}}
 async function req(path,opt={}){const r=await fetch(API+path,{...opt,headers:{...hdr(),...(opt.headers||{})}});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||("HTTP "+r.status));return d}
+
 function statusClass(s){if(s==="新线索")return"s-new";if(s==="跟进中")return"s-follow";if(s==="已成交")return"s-deal";return"s-lost"}
 function tagsHtml(tags){return (tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}
 function daysDiff(date){if(!date)return null;const d=new Date(date+"T00:00:00");const t=new Date(today+"T00:00:00");return Math.floor((d-t)/86400000)}
+
 function updateAuthView(logged){
   document.getElementById("authPanel").classList.toggle("hidden",logged);
   document.getElementById("appMain").classList.toggle("hidden",!logged);
 }
+function updateBootstrapMode(needsBootstrap){
+  document.getElementById("bootstrapPanel").classList.toggle("hidden", !needsBootstrap);
+  document.getElementById("authForms").classList.toggle("hidden", needsBootstrap);
+}
+
 function renderKpis(){
-  const total=customers.length, active=customers.filter(c=>c.status==="跟进中").length, deal=customers.filter(c=>c.status==="已成交").length, due=customers.filter(c=>c.nextDate&&daysDiff(c.nextDate)<=0).length;
+  const total=customers.length;
+  const active=customers.filter(c=>c.status==="跟进中").length;
+  const deal=customers.filter(c=>c.status==="已成交").length;
+  const due=customers.filter(c=>c.nextDate&&daysDiff(c.nextDate)<=0).length;
   document.getElementById("kpis").innerHTML=[
     ["客户总数",total],["跟进中",active],["已成交",deal],["今日待跟进",due]
   ].map(([k,v])=>`<div class="kpi"><span class="muted">${k}</span><b>${v}</b></div>`).join("");
@@ -163,13 +208,25 @@ function renderTable(){
     return hit&&(!sf||c.status===sf)&&(!lf||c.level===lf)&&(!of||c.owner===of)&&(!cf||c.channel===cf);
   }).sort((a,b)=>(a.nextDate||"9999").localeCompare(b.nextDate||"9999"));
   const tb=document.getElementById("customerTbody");
-  tb.innerHTML=rows.map(c=>{const d=daysDiff(c.nextDate);const next=!c.nextDate?"-":`${c.nextDate}${d<0?"（逾期）":d===0?"（今天）":""}`;return `<tr>
-    <td><b>${c.name}</b><div class="muted">${c.phone}<br>${c.source||"-"}</div></td>
-    <td>${c.wechat||"-"}<div class="muted">${c.city||"-"}</div></td>
-    <td>${c.owner||"-"}<div class="muted">${c.channel||"-"}</div></td>
-    <td><div>${c.level||"-"}</div><span class="status ${statusClass(c.status)}">${c.status||"-"}</span></td>
-    <td>${tagsHtml(c.tags)}</td><td>${c.lastFollow||"-"}</td><td>${next}</td><td><button data-del="${c.id}">删除</button></td></tr>`}).join("");
-  tb.querySelectorAll("button[data-del]").forEach(b=>b.addEventListener("click",async()=>{if(!confirm("确认删除该客户？"))return;await req("/api/customers/"+b.dataset.del,{method:"DELETE"});await loadData();}));
+  tb.innerHTML=rows.map(c=>{
+    const d=daysDiff(c.nextDate);
+    const next=!c.nextDate?"-":`${c.nextDate}${d<0?"（逾期）":d===0?"（今天）":""}`;
+    return `<tr>
+      <td><b>${c.name}</b><div class="muted">${c.phone}<br>${c.source||"-"}</div></td>
+      <td>${c.wechat||"-"}<div class="muted">${c.city||"-"}</div></td>
+      <td>${c.owner||"-"}<div class="muted">${c.channel||"-"}</div></td>
+      <td><div>${c.level||"-"}</div><span class="status ${statusClass(c.status)}">${c.status||"-"}</span></td>
+      <td>${tagsHtml(c.tags)}</td>
+      <td>${c.lastFollow||"-"}</td>
+      <td>${next}</td>
+      <td><button data-del="${c.id}">删除</button></td>
+    </tr>`;
+  }).join("");
+  tb.querySelectorAll("button[data-del]").forEach(b=>b.addEventListener("click",async()=>{
+    if(!confirm("确认删除该客户？"))return;
+    await req("/api/customers/"+b.dataset.del,{method:"DELETE"});
+    await loadData();
+  }));
 }
 function renderFollowSelect(){
   const s=document.getElementById("followCustomer");
@@ -178,8 +235,10 @@ function renderFollowSelect(){
 function renderTimeline(){
   const list=[...follows].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,40);
   const el=document.getElementById("timeline");
-  el.innerHTML=list.length?list.map(x=>`<div class="event"><b>${x.customerName}</b><div class="muted">${x.date} · ${x.result}${x.nextDate?` · 下次：${x.nextDate}`:""}</div><div>${x.content||"-"}</div></div>`).join(""):`<div class="muted">还没有跟进记录。</div>`;
+  if(!list.length){el.innerHTML=`<div class="muted">还没有跟进记录。</div>`;return;}
+  el.innerHTML=list.map(x=>`<div class="event"><b>${x.customerName}</b><div class="muted">${x.date} · ${x.result}${x.nextDate?` · 下次：${x.nextDate}`:""}</div><div>${x.content||"-"}</div></div>`).join("");
 }
+
 function n(id){const v=Number(document.getElementById(id).value);return Number.isFinite(v)?v:0}
 function currency(x){return "¥"+(Number.isFinite(x)?x:0).toFixed(2)}
 function percent(x){return (Number.isFinite(x)?x:0).toFixed(2)+"%"}
@@ -189,48 +248,87 @@ function renderProfit(){
   const rows=[["单件毛利",currency(gross)],["毛利率",percent(grossMargin*100)],["单件净利（含退货率）",currency(expNet)],["净利率（含退货率）",percent(netMargin*100)],["单件总成本",currency(varCost)],["保本销量",Number.isFinite(be)?`${be} 单`:"无法保本（单件净利<=0）"]];
   document.getElementById("profitResult").innerHTML=rows.map(([k,v])=>`<tr><th style="width:50%">${k}</th><td><b>${v}</b></td></tr>`).join("");
 }
-function renderAll(){document.getElementById("whoami").textContent=`当前账号：${user.username}（${user.role==="boss"?"老板":"员工"}）`;renderKpis();renderOwnerChannelFilters();renderTable();renderFollowSelect();renderTimeline();renderProfit();}
 
-async function loadData(){const c=await req("/api/customers");const f=await req("/api/follows");customers=c.customers||[];follows=f.follows||[];renderAll();}
+function renderUsers(){
+  const teamPanel = document.getElementById("teamPanel");
+  const isBoss = user && user.role === "boss";
+  teamPanel.classList.toggle("hidden", !isBoss);
+  if(!isBoss) return;
+  document.getElementById("userTable").innerHTML = users.map(u=>`<tr><td>${u.username}</td><td>${u.role==="boss"?"老板":"员工"}</td><td>${u.createdAt||"-"}</td></tr>`).join("");
+  document.getElementById("resetUser").innerHTML = users.map(u=>`<option value="${u.username}">${u.username}</option>`).join("");
+}
+function renderAll(){document.getElementById("whoami").textContent=`当前账号：${user.username}（${user.role==="boss"?"老板":"员工"}）`;renderKpis();renderOwnerChannelFilters();renderTable();renderFollowSelect();renderTimeline();renderProfit();renderUsers();}
+
+async function loadData(){
+  const c=await req("/api/customers");
+  const f=await req("/api/follows");
+  customers=c.customers||[];
+  follows=f.follows||[];
+  users=[];
+  if(user && user.role==="boss"){ try{ const u=await req("/api/users"); users=u.users||[]; }catch(_){ } }
+  renderAll();
+}
 async function bootWithToken(){
-  if(!token){updateAuthView(false);return;}
-  try{const me=await req("/api/me");user=me.user;updateAuthView(true);await loadData();}catch(_){localStorage.removeItem("crm_token");token="";updateAuthView(false);}
+  try{ const s=await req("/api/system-status"); updateBootstrapMode(!s.hasUsers); }catch(_){ updateBootstrapMode(false); }
+  if(!token){ updateAuthView(false); return; }
+  try{ const me=await req("/api/me"); user=me.user; updateAuthView(true); await loadData(); }catch(_){ localStorage.removeItem("crm_token"); token=""; updateAuthView(false); }
 }
 
-document.getElementById("loginForm").addEventListener("submit",async(e)=>{e.preventDefault();try{const d=await req("/api/login",{method:"POST",body:JSON.stringify({username:loginUser.value.trim(),password:loginPass.value})});token=d.token;localStorage.setItem("crm_token",token);user=d.user;setMsg("");updateAuthView(true);await loadData();}catch(err){setMsg("登录失败："+err.message)}});
-document.getElementById("registerForm").addEventListener("submit",async(e)=>{e.preventDefault();try{await req("/api/register",{method:"POST",body:JSON.stringify({username:regUser.value.trim(),password:regPass.value,role:regRole.value})});setMsg("注册成功，请用新账号登录。");registerForm.reset();}catch(err){setMsg("注册失败："+err.message)}});
-document.getElementById("logoutBtn").addEventListener("click",async()=>{try{await req("/api/logout",{method:"POST"});}catch(_){ } localStorage.removeItem("crm_token");token="";user=null;updateAuthView(false);});
-
-document.getElementById("customerForm").addEventListener("submit",async(e)=>{
+document.getElementById("loginForm").addEventListener("submit", async (e)=> {
+  e.preventDefault();
+  try{
+    const d=await req("/api/login",{method:"POST",body:JSON.stringify({username:loginUser.value.trim(),password:loginPass.value})});
+    token=d.token; localStorage.setItem("crm_token",token); user=d.user; setMsg(""); updateAuthView(true); await loadData();
+  }catch(err){ setMsg("登录失败："+err.message); }
+});
+document.getElementById("registerForm").addEventListener("submit", async (e)=> {
+  e.preventDefault();
+  try{ await req("/api/register",{method:"POST",body:JSON.stringify({username:regUser.value.trim(),password:regPass.value,role:regRole.value})}); setMsg("注册成功，请登录。"); registerForm.reset(); }
+  catch(err){ setMsg("注册失败："+err.message); }
+});
+document.getElementById("bootstrapForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  try{ await req("/api/bootstrap-admin",{method:"POST",body:JSON.stringify({username:bootUser.value.trim(),password:bootPass.value})}); setMsg("管理员创建成功，请登录。"); updateBootstrapMode(false); loginUser.value=bootUser.value.trim(); loginPass.value=""; }
+  catch(err){ setMsg("初始化失败："+err.message); }
+});
+document.getElementById("logoutBtn").addEventListener("click", async ()=> {
+  try{ await req("/api/logout",{method:"POST"}); }catch(_){}
+  localStorage.removeItem("crm_token"); token=""; user=null; updateAuthView(false);
+});
+document.getElementById("customerForm").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const fd=new FormData(e.target);
-  const payload={
-    name:(fd.get("name")||"").trim(), phone:(fd.get("phone")||"").trim(), wechat:(fd.get("wechat")||"").trim(), city:(fd.get("city")||"").trim(),
-    owner:(fd.get("owner")||"").trim(), channel:(fd.get("channel")||"").trim(), level:fd.get("level")||"", status:fd.get("status")||"",
-    source:(fd.get("source")||"").trim(), tags:(fd.get("tags")||"").split(",").map(s=>s.trim()).filter(Boolean),
-    nextDate:fd.get("nextDate")||"", amount:Number(fd.get("amount")||0), note:(fd.get("note")||"").trim(), lastFollow:""
-  };
+  const payload={name:(fd.get("name")||"").trim(),phone:(fd.get("phone")||"").trim(),wechat:(fd.get("wechat")||"").trim(),city:(fd.get("city")||"").trim(),owner:(fd.get("owner")||"").trim(),channel:(fd.get("channel")||"").trim(),level:fd.get("level")||"",status:fd.get("status")||"",source:(fd.get("source")||"").trim(),tags:(fd.get("tags")||"").split(",").map(s=>s.trim()).filter(Boolean),nextDate:fd.get("nextDate")||"",amount:Number(fd.get("amount")||0),note:(fd.get("note")||"").trim(),lastFollow:""};
   await req("/api/customers",{method:"POST",body:JSON.stringify(payload)});
   e.target.reset();
   await loadData();
 });
-
-document.getElementById("followForm").addEventListener("submit",async(e)=>{
+document.getElementById("followForm").addEventListener("submit", async (e)=>{
   e.preventDefault();
-  const cid=Number(document.getElementById("followCustomer").value||0); if(!cid)return;
+  const cid=Number(document.getElementById("followCustomer").value||0); if(!cid) return;
   const result=document.getElementById("followResult").value;
-  let status="跟进中"; if(result==="已成交")status="已成交"; if(result==="无意向")status="已流失";
+  let status="跟进中"; if(result==="已成交") status="已成交"; if(result==="无意向") status="已流失";
   const payload={customerId:cid,date:document.getElementById("followDate").value||today,content:document.getElementById("followContent").value.trim(),nextDate:document.getElementById("nextFollowDate").value||"",result,status};
   await req("/api/follows",{method:"POST",body:JSON.stringify(payload)});
   e.target.reset(); document.getElementById("followDate").value=today;
   await loadData();
 });
+document.getElementById("createUserForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  try{ await req("/api/users",{method:"POST",body:JSON.stringify({username:newUsername.value.trim(),password:newPassword.value,role:newRole.value})}); newUsername.value=""; newPassword.value=""; newRole.value="staff"; setMsg("账号创建成功。"); await loadData(); }
+  catch(err){ setMsg("创建账号失败："+err.message); }
+});
+document.getElementById("resetPwdForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  try{ await req("/api/users/reset-password",{method:"POST",body:JSON.stringify({username:resetUser.value,newPassword:resetPassword.value})}); resetPassword.value=""; setMsg("密码已重置。"); }
+  catch(err){ setMsg("重置失败："+err.message); }
+});
 
 ["searchInput","statusFilter","levelFilter","ownerFilter","channelFilter"].forEach(id=>document.getElementById(id).addEventListener("input",renderTable));
 ["salePrice","supplyPrice","commissionRate","streamerRate","shippingCost","packagingCost","returnRate","fixedCost"].forEach(id=>document.getElementById(id).addEventListener("input",renderProfit));
-
 document.getElementById("followDate").value=today;
 bootWithToken();
 </script>
 </body>
 </html>
+

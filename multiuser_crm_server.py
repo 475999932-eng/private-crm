@@ -99,6 +99,13 @@ def sha256(s):
     return hashlib.sha256(s.encode("utf-8")).hexdigest()
 
 
+def has_users():
+    conn = db_conn()
+    row = conn.execute("SELECT COUNT(1) AS c FROM users").fetchone()
+    conn.close()
+    return (row["c"] or 0) > 0
+
+
 class Handler(BaseHTTPRequestHandler):
     def _cors(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -154,6 +161,12 @@ class Handler(BaseHTTPRequestHandler):
         self._cors()
         self.end_headers()
 
+    def do_HEAD(self):
+        self.send_response(200)
+        self._cors()
+        self.send_header("Content-Type", "text/plain; charset=utf-8")
+        self.end_headers()
+
     def do_GET(self):
         path = urlparse(self.path).path
         if path == "/" or path == "/crm_multiuser.html":
@@ -170,6 +183,10 @@ class Handler(BaseHTTPRequestHandler):
             if not user:
                 return
             self._send(200, {"user": {"id": user["id"], "username": user["username"], "role": user["role"]}})
+            return
+
+        if path == "/api/system-status":
+            self._send(200, {"hasUsers": has_users()})
             return
 
         if path == "/api/customers":
@@ -232,6 +249,29 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, {"follows": follows})
             return
 
+        if path == "/api/users":
+            user = self._require_auth()
+            if not user:
+                return
+            if user["role"] != "boss":
+                self._send(403, {"error": "forbidden"})
+                return
+            conn = db_conn()
+            rows = conn.execute("SELECT id, username, role, created_at FROM users ORDER BY id ASC").fetchall()
+            conn.close()
+            users = []
+            for r in rows:
+                users.append(
+                    {
+                        "id": r["id"],
+                        "username": r["username"],
+                        "role": r["role"],
+                        "createdAt": r["created_at"],
+                    }
+                )
+            self._send(200, {"users": users})
+            return
+
         self._send(404, {"error": "not found"})
 
     def do_POST(self):
@@ -242,6 +282,9 @@ class Handler(BaseHTTPRequestHandler):
             username = (body.get("username") or "").strip()
             password = (body.get("password") or "").strip()
             role = (body.get("role") or "staff").strip()
+            if has_users():
+                self._send(403, {"error": "registration closed"})
+                return
             if not username or not password:
                 self._send(400, {"error": "username and password required"})
                 return
@@ -252,6 +295,31 @@ class Handler(BaseHTTPRequestHandler):
                 conn.execute(
                     "INSERT INTO users(username, password_hash, role, created_at) VALUES(?,?,?,?)",
                     (username, sha256(password), role, now_iso()),
+                )
+                conn.commit()
+            except sqlite3.IntegrityError:
+                conn.close()
+                self._send(409, {"error": "username exists"})
+                return
+            conn.close()
+            self._send(200, {"ok": True})
+            return
+
+        if path == "/api/bootstrap-admin":
+            if has_users():
+                self._send(409, {"error": "admin already exists"})
+                return
+            body = self._read_json()
+            username = (body.get("username") or "").strip()
+            password = (body.get("password") or "").strip()
+            if not username or not password:
+                self._send(400, {"error": "username and password required"})
+                return
+            conn = db_conn()
+            try:
+                conn.execute(
+                    "INSERT INTO users(username, password_hash, role, created_at) VALUES(?,?,?,?)",
+                    (username, sha256(password), "boss", now_iso()),
                 )
                 conn.commit()
             except sqlite3.IntegrityError:
@@ -338,6 +406,62 @@ class Handler(BaseHTTPRequestHandler):
             cid = cur.lastrowid
             conn.close()
             self._send(200, {"ok": True, "id": cid})
+            return
+
+        if path == "/api/users":
+            user = self._require_auth()
+            if not user:
+                return
+            if user["role"] != "boss":
+                self._send(403, {"error": "forbidden"})
+                return
+            b = self._read_json()
+            username = (b.get("username") or "").strip()
+            password = (b.get("password") or "").strip()
+            role = (b.get("role") or "staff").strip()
+            if role not in ("boss", "staff"):
+                role = "staff"
+            if not username or not password:
+                self._send(400, {"error": "username and password required"})
+                return
+            conn = db_conn()
+            try:
+                conn.execute(
+                    "INSERT INTO users(username, password_hash, role, created_at) VALUES(?,?,?,?)",
+                    (username, sha256(password), role, now_iso()),
+                )
+                conn.commit()
+            except sqlite3.IntegrityError:
+                conn.close()
+                self._send(409, {"error": "username exists"})
+                return
+            conn.close()
+            self._send(200, {"ok": True})
+            return
+
+        if path == "/api/users/reset-password":
+            user = self._require_auth()
+            if not user:
+                return
+            if user["role"] != "boss":
+                self._send(403, {"error": "forbidden"})
+                return
+            b = self._read_json()
+            username = (b.get("username") or "").strip()
+            new_password = (b.get("newPassword") or "").strip()
+            if not username or not new_password:
+                self._send(400, {"error": "username and newPassword required"})
+                return
+            conn = db_conn()
+            target = conn.execute("SELECT id FROM users WHERE username = ?", (username,)).fetchone()
+            if not target:
+                conn.close()
+                self._send(404, {"error": "user not found"})
+                return
+            conn.execute("UPDATE users SET password_hash = ? WHERE username = ?", (sha256(new_password), username))
+            conn.commit()
+            conn.close()
+            self._send(200, {"ok": True})
             return
 
         if path == "/api/follows":
